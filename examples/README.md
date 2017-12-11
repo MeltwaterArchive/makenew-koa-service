@@ -1,7 +1,5 @@
 # Examples
 
-<!--- TODO: Update all uses of is-true with added example. -->
-
 ## Running Examples Locally
 
 ### Local configuration
@@ -10,6 +8,7 @@ Set required and optional configuration options in `examples/local.json`, e.g.,
 
 ```json
 {
+  "koaApi": "http://localhost",
   "logLevel": "info",
   "logOutputMode": "short"
 }
@@ -17,6 +16,7 @@ Set required and optional configuration options in `examples/local.json`, e.g.,
 
 Override any option with the corresponding environment variable:
 
+- `KOA_API` (optional)
 - `LOG_LEVEL` (optional)
 - `LOG_OUTPUT_MODE` (optional)
 
@@ -31,19 +31,19 @@ $ yarn run example
 Run provided examples with, e.g.,
 
 ```
-$ yarn run example is-true
+$ yarn run example health
 ```
 
 Pass arguments to examples with
 
 ```
-$ yarn run example is-true false
+$ yarn run example health koa
 ```
 
 Automatically watch and rerun an example on changes with, e.g.,
 
 ```
-$ yarn run example:watch is-true
+$ yarn run example:watch health
 ```
 
 #### Debugging examples
@@ -51,7 +51,7 @@ $ yarn run example:watch is-true
 Debug examples with, e.g.,
 
 ```
-$ yarn run example:inspect is-true
+$ yarn run example:inspect health
 ```
 
 For examples which run a single process and then exit,
@@ -68,10 +68,13 @@ export default ({log}) => async () => {
 Automatically watch and rerun a debuggable example on changes with, e.g.,
 
 ```
-$ yarn run example:inspect:watch is-true
+$ yarn run example:inspect:watch health
 ```
 
 ## Writing New Examples
+
+_Modify the `serverOptions` function in example/index.js`
+to use server configuration values in your examples._
 
 1. Create a new file in `examples` or add an example to an existing file.
    Any new dependencies which are only used

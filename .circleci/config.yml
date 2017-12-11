@@ -45,10 +45,24 @@ references:
           name: Test and build package
           command: |
             if [[ "${PUBLISH}" == 'true' ]]; then
+              yarn add --exact source-map-support@0.5.0
               yarn run build
+              yarn pack
             else
               yarn run dist
             fi
+      - run:
+          name: Extract package
+          command: |
+            if [[ "${PUBLISH}" == 'true' ]]; then
+              tar -xzf *.tgz
+            else
+              mkdir package
+            fi
+      - persist_to_workspace:
+          root: .
+          paths:
+            - package
       - run:
           name: Upload coverage to Codecov
           command: |
@@ -62,16 +76,50 @@ references:
             if [[ "${PUBLISH}" == 'true' ]]; then
               .circleci/publish.sh
             fi
+  push: &push
+    working_directory: /app
+    docker:
+      - image: docker:stable-git
+    environment:
+      APP_NAME: 'meltwater/app'
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - checkout
+      - setup_remote_docker:
+          version: 17.10.0-ce
+          docker_layer_caching: true
+      - run:
+          name: Install build dependencies
+          command: apk add --no-cache jq
+      - run:
+          name: Move package to working directory
+          command: mv /tmp/workspace/package .
+      - run:
+          name: Create package.json.tmp
+          command: |
+            jq '.version="0.0.0"' package/package.json > package/package.json.tmp
+      - run:
+          name: Build Docker image
+          command: |
+            docker build --tag $APP_NAME \
+              --build-arg=NPM_TOKEN=$NPM_TOKEN \
+              -f .circleci/Dockerfile .
+      - deploy:
+          name: Push and deploy Docker image
+          command: |
+            apk add --quiet --no-cache bash
+            if [[ -n "${BINTRAY_REPOSITORY}" ]]; then
+              .circleci/push-bintray.sh
+            fi
+            if [[ -n "${AWS_ECR_REPOSITORY}" ]]; then
+              .circleci/push-ecr.sh
+            fi
+            .circleci/deploy.sh
+  branches: &branches
+    only: /^(v[0-9]|master)/
 
 jobs:
-  node:
-    docker:
-      - image: node
-    <<: *build
-  node-alpine:
-    docker:
-      - image: node:alpine
-    <<: *build
   node-carbon:
     environment:
       COVERAGE: 'true'
@@ -88,21 +136,25 @@ jobs:
     docker:
       - image: node:carbon
     <<: *build
+  push:
+    <<: *push
 
 workflows:
   version: 2
   default:
     jobs:
-      - node
-      - node-alpine
       - node-carbon
       - node-carbon-alpine
       - publish:
           filters:
             branches:
-              only: /^(v[0-9]|master)/
+              <<: *branches
           requires:
-            - node
-            - node-alpine
             - node-carbon
             - node-carbon-alpine
+      - push:
+          filters:
+            branches:
+              <<: *branches
+          requires:
+            - publish

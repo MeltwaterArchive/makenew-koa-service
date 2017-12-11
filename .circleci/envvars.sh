@@ -42,6 +42,27 @@ help_codecov () {
        "https://codecov.io/gh/${circle_repo}/settings"
 }
 
+help_aws_ecr () {
+  echo
+  echo '> Push to Amazon ECR by setting the following environment variables.'
+  echo
+}
+
+help_bintray () {
+  echo
+  echo '> Push to Bintray by setting the following environment variables.'
+  echo
+}
+
+help_bintray_registry () {
+  echo '> If unsure, use meltwater-docker-registry'
+}
+
+help_bintray_password () {
+  echo
+  echo '> Your Bintray API key.'
+}
+
 command -v jq >/dev/null 2>&1 || \
   (echo 'jq required: https://stedolan.github.io/jq/' && exit 2)
 
@@ -91,9 +112,69 @@ main () {
     read -p '> Codecov token (CODECOV_TOKEN): ' codecov_token
   fi
 
+  [[ $noninteractive == 'true' ]] || help_aws_ecr
+
+  aws_ecr_repository=${CI_AWS_ECR_REPOSITORY:-}
+  if [[ -z $aws_ecr_repository && $noninteractive != 'true' ]]; then
+    read -p '> AWS ECR repository (AWS_ECR_REPOSITORY): ' aws_ecr_repository
+  fi
+
+  aws_account_id=${CI_AWS_ACCOUNT_ID:-}
+  if [[ -z $aws_account_id && $noninteractive != 'true' ]]; then
+    read -p '> AWS account id (AWS_ACCOUNT_ID): ' aws_account_id
+  fi
+
+  aws_default_region=${CI_AWS_DEFAULT_REGION:-}
+  if [[ -z $aws_default_region && $noninteractive != 'true' ]]; then
+    read -p '> AWS default region (AWS_DEFAULT_REGION): ' aws_default_region
+  fi
+
+  aws_access_key_id=${CI_AWS_ACCESS_KEY_ID:-}
+  if [[ -z $aws_access_key_id && $noninteractive != 'true' ]]; then
+    read -p '> AWS access key id (AWS_ACCESS_KEY_ID): ' aws_access_key_id
+  fi
+
+  aws_secret_access_key=${CI_AWS_SECRET_ACCESS_KEY:-}
+  if [[ -z $aws_secret_access_key && $noninteractive != 'true' ]]; then
+    read -p '> AWS secret access key (AWS_SECRET_ACCESS_KEY): ' aws_secret_access_key
+  fi
+
+  [[ $noninteractive == 'true' ]] || help_bintray
+
+  bintray_registry=${CI_BINTRAY_REGISTRY:-}
+  [[ -n "${bintray_registry}" || $noninteractive == 'true' ]] || help_bintray_registry
+  if [[ -z $bintray_registry && $noninteractive != 'true' ]]; then
+    read -p '> Bintray registry name (BINTRAY_REGISTRY): ' bintray_registry
+  fi
+
+  bintray_repository=${CI_BINTRAY_REPOSITORY:-}
+  if [[ -z $bintray_repository && $noninteractive != 'true' ]]; then
+    read -p '> Bintray repository name (BINTRAY_REPOSITORY): ' bintray_repository
+  fi
+
+  bintray_username=${CI_BINTRAY_USERNAME:-}
+  if [[ -z $bintray_username && $noninteractive != 'true' ]]; then
+    read -p '> Bintray username (BINTRAY_USERNAME): ' bintray_username
+  fi
+
+  bintray_password=${CI_BINTRAY_PASSWORD:-}
+  [[ -n "${bintray_password}" || $noninteractive == 'true' ]] || help_bintray_password
+  if [[ -z $bintray_password && $noninteractive != 'true' ]]; then
+    read -p '> Bintray password (BINTRAY_PASSWORD): ' bintray_password
+  fi
+
   envvar 'NPM_TOKEN' "${npm_token}"
   envvar 'NPM_TEAM' "${npm_team}"
   envvar 'CODECOV_TOKEN' "${codecov_token}"
+  envvar 'AWS_ECR_REPOSITORY' "${aws_ecr_repository}"
+  envvar 'AWS_ACCOUNT_ID' "${aws_account_id}"
+  envvar 'AWS_DEFAULT_REGION' "${aws_default_region}"
+  envvar 'AWS_ACCESS_KEY_ID' "${aws_access_key_id}"
+  envvar 'AWS_SECRET_ACCESS_KEY' "${aws_secret_access_key}"
+  envvar 'BINTRAY_REGISTRY' "${bintray_registry}"
+  envvar 'BINTRAY_REPOSITORY' "${bintray_repository}"
+  envvar 'BINTRAY_USERNAME' "${bintray_username}"
+  envvar 'BINTRAY_PASSWORD' "${bintray_password}"
 }
 
 noninteractive=${NONINTERACTIVE:-false}

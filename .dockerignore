@@ -1,3 +1,5 @@
+# This file mirrors .gitignore with additional overrides at the end.
+
 # Parts of this file were adapted from
 # GitHub’s collection of .gitignore file templates
 # which are Copyright (c) 2017 GitHub, Inc.
@@ -10,7 +12,6 @@ dist
 package
 
 # Local config
-config/env.*
 config/local.*
 examples/local.json
 
@@ -26,9 +27,6 @@ examples/local.json
 
 # Temporary development files
 tmp
-
-# npm lockfile (only yarn.lock supported)
-package-lock.json
 
 # Logs
 logs
@@ -88,3 +86,12 @@ typings/
 
 # dotenv environment variables file
 .env
+
+# Docker exceptions
+.circleci
+.dockerignore
+.editorconfig
+.git
+.gitignore
+Dockerfile
+!package

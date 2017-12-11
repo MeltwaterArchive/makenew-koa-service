@@ -1,28 +1,46 @@
 import path from 'path'
 
 import createExamples from '@meltwater/examplr'
+import createLogger from '@meltwater/mlabs-logger'
 
-import isTrue from './is-true' // TODO: Replace this with added example.
+import boot from '../server/boot'
+import health from './health'
 
 export const examples = {
-  isTrue // TODO: Replace this with added example.
+  health
 }
 
 const envVars = [
+  'KOA_API',
   'LOG_LEVEL',
   'LOG_OUTPUT_MODE'
 ]
 
 const defaultOptions = {}
 
-if (require.main === module) {
-  const { runExample } = createExamples({
-    examples,
-    envVars,
-    defaultOptions
-  })
+const serverOptions = config => {
+  const host = 'http://localhost'
+  const port = config.get('port')
 
-  runExample({
-    local: path.resolve(__dirname, 'local.json')
+  return {
+    koaApi: port ? `${host}:${port}` : host
+  }
+}
+
+if (require.main === module) {
+  const { configFactory } = boot()
+  configFactory.create((err, config) => {
+    if (err) throw err
+
+    const { runExample } = createExamples({
+      createLogger,
+      examples,
+      envVars,
+      defaultOptions: {...defaultOptions, ...serverOptions(config)}
+    })
+
+    runExample({
+      local: path.resolve(__dirname, 'local.json')
+    })
   })
 }

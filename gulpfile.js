@@ -7,14 +7,17 @@ const $ = require('gulp-load-plugins')()
 const paths = {
   json: [
     '*.json',
+    'config/**/*.json',
     'data/**/*.json',
     'examples/**/*.json',
     'fixtures/**/*.json'
   ],
   scripts: [
     '*.js',
+    'config/**/*.js',
     'examples/**/*.js',
     'lib/**/*.js',
+    'server/**/*.js',
     'test/**/*.js'
   ]
 }
