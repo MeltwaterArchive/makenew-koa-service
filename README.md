@@ -1,55 +1,73 @@
-# Node.js npm Package Skeleton
+# Node.js Koa Microservice Skeleton
 
-[![npm](https://img.shields.io/badge/npm-%40meltwater%2Fmakenew--node--lib-blue.svg)](https://www.npmjs.com/package/@meltwater/makenew-node-lib)
-[![github](https://img.shields.io/badge/github-repo-blue.svg)](https://github.com/meltwater/makenew-node-lib)
-[![Codecov](https://img.shields.io/codecov/c/token/eHEIOjPT5u/github/meltwater/makenew-node-lib.svg)](https://codecov.io/gh/meltwater/makenew-node-lib)
-[![CircleCI](https://circleci.com/gh/meltwater/makenew-node-lib.svg?style=shield&circle-token=30395fe910ca2b9f7553c6311e85bd8ebe1ee059)](https://circleci.com/gh/meltwater/makenew-node-lib)
+[![npm](https://img.shields.io/badge/npm-%40meltwater%2Fmakenew--koa--service-blue.svg)](https://www.npmjs.com/package/@meltwater/makenew-koa-service)
+[![Bintray](https://img.shields.io/badge/bintray-docker-blue.svg)](https://bintray.com/meltwater/registry/makenew-koa-service)
+[![GitHub](https://img.shields.io/badge/github-repo-blue.svg)](https://github.com/meltwater/makenew-koa-service)
+[![Codecov](https://img.shields.io/codecov/c/token/VFHOFyfAmt/github/meltwater/makenew-koa-service.svg)](https://codecov.io/gh/meltwater/makenew-koa-service)
+[![CircleCI](https://circleci.com/gh/meltwater/makenew-koa-service.svg?style=shield&circle-token=e53ca6f402372b0142f6748a90670a4295f4b8d8)](https://circleci.com/gh/meltwater/makenew-koa-service)
 
 ## Description
 
-Bootstrap a new [Node.js] [npm package] in five minutes or less.
+Bootstrap a new [Node.js] [Koa] microservice in five minutes or less.
 
+[Koa]: http://koajs.com/
 [Node.js]: https://nodejs.org/
-[npm package]: https://docs.npmjs.com/how-npm-works/packages
 
 ### Features
 
 - [Node.js]'s [npm] package structure.
 - Fast, reliable, and secure dependency management with [Yarn].
+- [Alpine Linux] based multi-stage [Docker] builds for optimized production images.
+- Images tagged using package version and commit checksum.
+- Images pushed to [Bintray] and the [Amazon EC2 Container Registry (ECR)].
+- Configurable application lifecycle and middleware suite with [mlabs-koa].
+- Standardized JSON logging with [mlabs-logger].
+- Hierarchical application configuration with [confit].
+- Centralized dependency injection with [Awilix].
+- Health monitoring with [mlabs-health].
 - Next generation JavaScript with [Babel].
 - Write debuggable examples with configurable options and arguments.
 - Linting with the [JavaScript Standard Style] and [JSON Lint].
 - Automatically lint on changes with [gulp].
 - Futuristic debuggable unit testing with [AVA].
 - Code coverage reporting with [Istanbul], [nyc], and [Codecov].
-- Continuous testing and automated package publishing with [CircleCI].
+- Continuous testing and deployment with [CircleCI].
 - [Keep a CHANGELOG].
 - Consistent coding with [EditorConfig].
 - Badges from [Shields.io].
 
 [AVA]: https://github.com/avajs/ava
+[Alpine Linux]: https://alpinelinux.org/
+[Amazon EC2 Container Registry (ECR)]: https://aws.amazon.com/ecr/
+[Awilix]: https://github.com/jeffijoe/awilix
 [Babel]: https://babeljs.io/
+[Bintray]: https://bintray.com/
 [CircleCI]: https://circleci.com/
 [Codecov]: https://codecov.io/
+[Docker]: https://www.docker.com/
 [EditorConfig]: http://editorconfig.org/
-[gulp]: http://gulpjs.com/
-[Keep a CHANGELOG]: http://keepachangelog.com/
 [Istanbul]: https://istanbul.js.org/
-[JavaScript Standard Style]: http://standardjs.com/
 [JSON Lint]: https://github.com/zaach/jsonlint
+[JavaScript Standard Style]: http://standardjs.com/
+[Keep a CHANGELOG]: http://keepachangelog.com/
 [Node.js]: https://nodejs.org/
-[npm]: https://www.npmjs.com/
-[nyc]: https://github.com/istanbuljs/nyc
 [Shields.io]: http://shields.io/
 [Yarn]: https://yarnpkg.com/
+[confit]: https://github.com/krakenjs/confit
+[gulp]: http://gulpjs.com/
+[mlabs-health]: https://github.com/meltwater/mlabs-health
+[mlabs-koa]: https://github.com/meltwater/mlabs-koa
+[mlabs-logger]: https://github.com/meltwater/mlabs-logger
+[npm]: https://www.npmjs.com/
+[nyc]: https://github.com/istanbuljs/nyc
 
 ### Bootstrapping a new project
 
 1. Clone the master branch of this repository with
 
    ```
-   $ git clone --single-branch git@github.com:meltwater/makenew-node-lib.git <new-node-lib>
-   $ cd <new-node-lib>
+   $ git clone --single-branch git@github.com:meltwater/makenew-koa-service.git <new-koa-service>
+   $ cd <new-koa-service>
    ```
 
    Optionally, reset to the latest version with
@@ -81,7 +99,7 @@ Bootstrap a new [Node.js] [npm package] in five minutes or less.
    ```
    $ git diff --cached
    $ git commit -m "Replace makenew boilerplate"
-   $ git remote add origin git@github.com:meltwater/<new-node-lib>.git
+   $ git remote add origin git@github.com:meltwater/<new-koa-service>.git
    $ git push -u origin master
    ```
 
@@ -99,8 +117,6 @@ Bootstrap a new [Node.js] [npm package] in five minutes or less.
    Disable the GitHub repository projects and wiki options (unless desired).
    Add any required GitHub teams or collaborators to the repository.
 
-8. Search for all `TODO` comments to add your first module.
-
 ### Updating from this skeleton
 
 If you want to pull in future updates from this skeleton,
@@ -109,7 +125,7 @@ you can fetch and merge in changes from this repository.
 Add this as a new remote with
 
 ```
-$ git remote add upstream git@github.com:meltwater/makenew-node-lib.git
+$ git remote add upstream git@github.com:meltwater/makenew-koa-service.git
 ```
 
 You can then fetch and merge changes with
@@ -125,50 +141,13 @@ Note that `CHANGELOG.md` is just a template for this skeleton.
 The actual changes for this project are documented in the commit history
 and summarized under [Releases].
 
-[Releases]: https://github.com/meltwater/makenew-node-lib/releases
-
-## Installation
-
-Add this as a dependency to your project using [npm] with
-
-```
-$ npm install @meltwater/makenew-node-lib
-```
-
-or using [Yarn] with
-
-```
-$ yarn add @meltwater/makenew-node-lib
-```
-
-[npm]: https://www.npmjs.com/
-[Yarn]: https://yarnpkg.com/
-
-## Usage
-
-<!--- TODO: Update usage example for added module(s). -->
-
-**See the complete [API documentation](./docs) and [working examples](./examples).**
-
-This package provides an async function which checks if its argument is true.
-
-```js
-import isTrue from '@meltwater/makenew-node-lib'
-
-const logTrue = async () => {
-  const trueValue = await isTrue(true)
-  console.log(trueValue)
-}
-
-logTrue().catch(err => { console.log(err) })
-// true
-```
+[Releases]: https://github.com/meltwater/makenew-koa-service/releases
 
 ## Development Quickstart
 
 ```
-$ git clone https://github.com/meltwater/makenew-node-lib.git
-$ cd makenew-node-lib
+$ git clone https://github.com/meltwater/makenew-koa-service.git
+$ cd makenew-koa-service
 $ nvm install
 $ yarn
 ```
@@ -178,20 +157,47 @@ Run each command below in a separate terminal window:
 ```
 $ yarn run watch
 $ yarn run watch:test
+$ yarn run server:watch
 ```
+
+## Configuration and Deployment
+
+Configuration is loaded using [confit].
+All static configuration is defined under `config`
+and dynamic configuration in `server/config.js`.
+
+The special files `config/local.json` and `config/env.json`
+are excluded from version control.
+In development, use these files for local overrides and secrets.
+In production, mount these files inside the container to inject configuration.
+
+The service is distributed as a Docker image on Bintray and ECR.
+Mount local configuration and run it with
+
+After authenticating with Bintray
+and adding local configuration to `config/local.json`,
+pull the image and run it with
+
+```
+$ docker run --read-only --init --publish 80:8080 \
+  --volume "$(pwd)/config/local.json:/usr/src/app/config/local.json" \
+  meltwater-docker-registry.bintray.io/makenew-koa-service
+```
+
+[confit]: https://github.com/krakenjs/confit
 
 ## Development and Testing
 
 ### Source code
 
-The [makenew-node-lib source] is hosted on GitHub.
+The [makenew-koa-service source] is hosted on GitHub.
 Clone the project with
 
 ```
-$ git clone git@github.com:meltwater/makenew-node-lib.git
+$ git clone git@github.com:meltwater/makenew-koa-service.git
 ```
 
-[makenew-node-lib source]: https://github.com/meltwater/makenew-node-lib
+[makenew-koa-service source]: https://github.com/meltwater/makenew-koa-service
 
 ### Requirements
 
@@ -221,21 +227,51 @@ $ yarn
 [Node.js debugging]: https://nodejs.org/en/docs/guides/debugging-getting-started/
 [npm]: https://www.npmjs.com/
 [nvm]: https://github.com/creationix/nvm
+[Yarn]: https://yarnpkg.com/
 
 #### CircleCI
 
 _CircleCI should already be configured: this section is for reference only._
 
-The following environment variables must be set on [CircleCI]:
+The following environment variables must be set on [CircleCI].
+These may be set manually or by running the script `./circleci/envvars.sh`.
+
+### npm
 
 - `NPM_TOKEN`: npm token for installing and publishing packages.
 - `NPM_TEAM`: npm team to grant read-only package access
   (format `org:team`, optional).
-- `CODECOV_TOKEN`: Codecov token for uploading coverage reports (optional).
 
-These may be set manually or by running the script `./circleci/envvars.sh`.
+### Codecov
 
+If set, [CircleCI] will send code coverage reports to [Codecov].
+
+- `CODECOV_TOKEN`: Codecov token for uploading coverage reports.
+
+### Bintray
+
+If set, [CircleCI] will build, tag, and push images to [Bintray].
+
+- `BINTRAY_REGISTRY`: Bintray registry name.
+- `BINTRAY_REPOSITORY`: Bintray repository name.
+- `BINTRAY_USERNAME`: Bintray username.
+- `BINTRAY_PASSWORD`: Bintray password (your API key).
+
+
+### Amazon EC2 Container Registry (ECR)
+
+If set, [CircleCI] will build, tag, and push images to [Amazon ECR].
+
+- `AWS_ECR_REPOSITORY`: Amazon ECR repository name.
+- `AWS_ACCOUNT_ID`: Amazon account ID.
+- `AWS_DEFAULT_REGION`: AWS region.
+- `AWS_ACCESS_KEY_ID`: AWS access key ID.
+- `AWS_SECRET_ACCESS_KEY`: AWS secret access key.
+
+[Amazon ECR]: https://aws.amazon.com/ecr/
+[Bintray]: https://bintray.com/
 [CircleCI]: https://circleci.com/
+[Codecov]: https://codecov.io/
 
 ### Development tasks
 
@@ -262,9 +298,38 @@ _Update the CHANGELOG before each new release._
 Release a new version using [`npm version`][npm version].
 This will run all tests, update the version number,
 create and push a tagged commit,
-and trigger CircleCI to publish the new version to npm.
+trigger CircleCI to publish the new version to npm,
+and build and push a tagged container to all configured registries.
 
 [npm version]: https://docs.npmjs.com/cli/version
+
+#### Server
+
+Run the server locally with
+
+```
+$ yarn run server
+```
+
+Run a server that will restart on changes with
+
+```
+$ yarn run server:watch
+```
+
+##### Debugging the server
+
+Start a debuggable server with
+
+```
+$ yarn run server:inspect
+```
+
+Run a debuggable server that will restart on changes with
+
+```
+$ yarn run server:inspect:watch
+```
 
 #### Examples
 
@@ -347,6 +412,20 @@ $ yarn run ava:inspect:watch lib/true.spec.js
 [Codecov]: https://codecov.io/
 [Istanbul]: https://istanbul.js.org/
 
+### Docker
+
+The production Docker image is built on CircleCI from `.circleci/Dockerfile`:
+this Dockerfile can only be used with the CircleCI workflow.
+
+In rare cases, building an equivalent container locally may be useful.
+First, export a valid `NPM_TOKEN` in your environment,
+then build and run this local container with
+
+```
+$ docker build --build-arg=NPM_TOKEN=$NPM_TOKEN -t makenew-koa-service .
+$ docker run --read-only --init --publish 80:8080 makenew-koa-service
+```
+
 ## Contributing
 
 The author and active contributors may be found in `package.json`,
@@ -367,7 +446,7 @@ To submit a patch:
 
 ## License
 
-This npm package is Copyright (c) 2016-2017 Meltwater Group.
+This service is Copyright (c) 2016-2017 Meltwater Group.
 
 ## Warranty
 

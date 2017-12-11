@@ -77,26 +77,30 @@ makenew () {
   read -p '> Author name (Linus Torvalds): ' mk_author
   read -p '> Author email (linus@example.com): ' mk_email
   read -p '> GitHub repository name (my-repo): ' mk_repo
+  read -p '> Bintray registry name (mlabs-registry): ' mk_bintray_registry
+  read -p '> Bintray repository name (my-repository): ' mk_bintray_repo
   help_circleci "meltwater/${mk_repo}"
   read -p '> CircleCI status token: ' mk_circleci
   help_codecov "meltwater/${mk_repo}"
   read -p '> Codecov status token: ' mk_codecov
 
-  sed_delete README.md '11,129d'
+  sed_delete README.md '11,144d'
   sed_insert README.md '11i' "${mk_description}"
 
   find_replace "s/\"version\": \".*\"/\"version\": \"0.0.0\"/g"
   find_replace "s/0\.0\.0\.\.\./0.0.1.../g"
-  find_replace "s/Node\.js npm Package Skeleton/${mk_title}/g"
-  find_replace "s/npm package skeleton for Meltwater Node\.js libraries\./${mk_description}/g"
+  find_replace "s/Node\.js Koa Microservice Skeleton/${mk_title}/g"
+  find_replace "s/Koa skeleton for Meltwater Node\.js microservices\./${mk_description}/g"
   find_replace "s/Evan Sosenko/${mk_author}/g"
   find_replace "s/evan.sosenko@meltwater\.com/${mk_email}/g"
-  find_replace "s/@meltwater\/makenew-node-lib/@meltwater\/${mk_slug}/g"
-  find_replace "s/meltwater\/makenew-node-lib/meltwater\/${mk_repo}/g"
-  find_replace "s/makenew-node-lib/${mk_repo}/g"
-  find_replace "s/makenew--node--lib/$(echo ${mk_slug} | sed 's/-/--/g')/g"
-  find_replace "s/30395fe910ca2b9f7553c6311e85bd8ebe1ee059/${mk_circleci}/g"
-  find_replace "s/eHEIOjPT5u/${mk_codecov}/g"
+  find_replace "s/meltwater-docker-registry\.bintray\.io\/makenew-koa-service/meltwater-docker-${mk_bintray_registry}.bintray.io\/${mk_bintray_repo}/g"
+  find_replace "s/registry\/makenew-koa-service/${mk_bintray_registry}\/${mk_bintray_repo}/g"
+  find_replace "s/@meltwater\/makenew-koa-service/@meltwater\/${mk_slug}/g"
+  find_replace "s/meltwater\/makenew-koa-service/meltwater\/${mk_repo}/g"
+  find_replace "s/makenew-koa-service/${mk_repo}/g"
+  find_replace "s/makenew--koa--service/$(echo ${mk_slug} | sed 's/-/--/g')/g"
+  find_replace "s/e53ca6f402372b0142f6748a90670a4295f4b8d8/${mk_circleci}/g"
+  find_replace "s/VFHOFyfAmt/${mk_codecov}/g"
 
   echo
   echo 'Replacing boilerplate.'
