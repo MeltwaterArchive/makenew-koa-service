@@ -236,19 +236,19 @@ _CircleCI should already be configured: this section is for reference only._
 The following environment variables must be set on [CircleCI].
 These may be set manually or by running the script `./circleci/envvars.sh`.
 
-### npm
+##### npm
 
 - `NPM_TOKEN`: npm token for installing and publishing packages.
 - `NPM_TEAM`: npm team to grant read-only package access
   (format `org:team`, optional).
 
-### Codecov
+##### Codecov
 
 If set, [CircleCI] will send code coverage reports to [Codecov].
 
 - `CODECOV_TOKEN`: Codecov token for uploading coverage reports.
 
-### Bintray
+##### Bintray
 
 If set, [CircleCI] will build, tag, and push images to [Bintray].
 
@@ -258,7 +258,7 @@ If set, [CircleCI] will build, tag, and push images to [Bintray].
 - `BINTRAY_PASSWORD`: Bintray password (your API key).
 
 
-### Amazon EC2 Container Registry (ECR)
+##### Amazon EC2 Container Registry (ECR)
 
 If set, [CircleCI] will build, tag, and push images to [Amazon ECR].
 
