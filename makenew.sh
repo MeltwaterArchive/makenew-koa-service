@@ -45,6 +45,17 @@ stage_env () {
   echo
 }
 
+help_bintray () {
+  echo
+  echo "For example, if the Bintray page for the project is"
+  echo
+  echo "  https://bintray.com/meltwater/mlabs-registry/my-service"
+  echo
+  echo "the registry name is 'mlabs-registry'" \
+       "and the repository name is 'my-service'."
+  echo
+}
+
 help_circleci () {
   repo=$1
   url_edit="https://circleci.com/gh/${repo}/edit"
@@ -77,6 +88,7 @@ makenew () {
   read -p '> Author name (Linus Torvalds): ' mk_author
   read -p '> Author email (linus@example.com): ' mk_email
   read -p '> GitHub repository name (my-repo): ' mk_repo
+  help_bintray
   read -p '> Bintray registry name (mlabs-registry): ' mk_bintray_registry
   read -p '> Bintray repository name (my-repository): ' mk_bintray_repo
   help_circleci "meltwater/${mk_repo}"
