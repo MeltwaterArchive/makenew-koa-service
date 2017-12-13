@@ -12,6 +12,7 @@ package
 # Local config
 config/env.*
 config/local.*
+config/secret.*
 examples/local.json
 
 # Environment versions file

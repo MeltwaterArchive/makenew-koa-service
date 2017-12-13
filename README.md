@@ -160,23 +160,56 @@ $ yarn run watch:test
 $ yarn run server:watch
 ```
 
-## Configuration and Deployment
+## Usage
 
-Configuration is loaded using [confit].
+### Configuration
+
+#### Config files
+
+Configuration is loaded using [confit]
+and available in `lib/dependencies.js` via `confit.get('foo:bar')`.
 All static configuration is defined under `config`
 and dynamic configuration in `server/config.js`.
 
-The special files `config/local.json` and `config/env.json`
+The files `config/env.json` and `config/local.json`,
+and the paths `config/env.d` and `config/local.d`
 are excluded from version control.
-In development, use these files for local overrides and secrets.
-In production, mount these files inside the container to inject configuration.
+The load order is `env.d/*.json`, `env.json`, `local.d/*.json`, and `local.json`.
+In development, use these for local overrides and secrets.
+In production, mount these inside the container to inject configuration.
 
-The service is distributed as a Docker image on Bintray and ECR.
-Mount local configuration and run it with
+#### Secrets
 
-After authenticating with Bintray
-and adding local configuration to `config/local.json`,
-pull the image and run it with
+The (whitespace-trimmed) contents of each file in `config/secret.d` is
+added to the config under the property `secret`
+with a key equal to the filename.
+
+For example, to use the secret in `config/secret.d/foobar`,
+reference it from another property like
+
+```json
+{
+  "api": {
+    "key": "config:secret.foobar"
+  }
+}
+```
+
+#### Environment variables
+
+File-based configuration should always be preferred over environment variables,
+however all environment variables are loaded into the config.
+
+The only officially supported environment variables are
+`LOG_ENV`, `LOG_SYSTEM`, `LOG_SERVICE`, and `LOG_LEVEL`.
+
+### Docker container
+
+The service is distributed as a Docker container on Bintray and ECR.
+
+To run locally, for example, authenticate with Bintray,
+add local configuration to `config/local.json`,
+then pull and run the image with
 
 ```
 $ docker run --read-only --init --publish 80:8080 \
