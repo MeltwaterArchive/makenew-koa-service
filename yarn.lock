@@ -66,9 +66,9 @@
     ramda "^0.25.0"
     uuid "^3.1.0"
 
-"@meltwater/mlabs-koa@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@meltwater/mlabs-koa/-/mlabs-koa-1.0.0.tgz#5b4ac5b4f8311378d5f9b592910c9d74b1a0ca84"
+"@meltwater/mlabs-koa@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@meltwater/mlabs-koa/-/mlabs-koa-1.1.0.tgz#9e87b4a271fc3f715ed2f4cecc5552fcee378604"
   dependencies:
     "@koa/cors" "^2.2.1"
     "@meltwater/mlabs-logger" "^3.1.0"
