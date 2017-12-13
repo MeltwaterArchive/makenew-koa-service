@@ -143,24 +143,21 @@ and summarized under [Releases].
 
 [Releases]: https://github.com/meltwater/makenew-koa-service/releases
 
-## Development Quickstart
-
-```
-$ git clone https://github.com/meltwater/makenew-koa-service.git
-$ cd makenew-koa-service
-$ nvm install
-$ yarn
-```
-
-Run each command below in a separate terminal window:
-
-```
-$ yarn run watch
-$ yarn run watch:test
-$ yarn run server:watch
-```
-
 ## Usage
+
+### Docker container
+
+The service is distributed as a Docker container on Bintray and ECR.
+
+To run locally, for example, authenticate with Bintray,
+add local configuration to `config/local.json`,
+then pull and run the image with
+
+```
+$ docker run --read-only --init --publish 80:8080 \
+  --volume "$(pwd)/config/local.json:/usr/src/app/config/local.json" \
+  meltwater-docker-registry.bintray.io/makenew-koa-service
+```
 
 ### Configuration
 
@@ -203,21 +200,24 @@ however all environment variables are loaded into the config.
 The only officially supported environment variables are
 `LOG_ENV`, `LOG_SYSTEM`, `LOG_SERVICE`, and `LOG_LEVEL`.
 
-### Docker container
-
-The service is distributed as a Docker container on Bintray and ECR.
-
-To run locally, for example, authenticate with Bintray,
-add local configuration to `config/local.json`,
-then pull and run the image with
-
-```
-$ docker run --read-only --init --publish 80:8080 \
-  --volume "$(pwd)/config/local.json:/usr/src/app/config/local.json" \
-  meltwater-docker-registry.bintray.io/makenew-koa-service
-```
-
 [confit]: https://github.com/krakenjs/confit
+
+## Development Quickstart
+
+```
+$ git clone https://github.com/meltwater/makenew-koa-service.git
+$ cd makenew-koa-service
+$ nvm install
+$ yarn
+```
+
+Run each command below in a separate terminal window:
+
+```
+$ yarn run watch
+$ yarn run watch:test
+$ yarn run server:watch
+```
 
 ## Development and Testing
 
