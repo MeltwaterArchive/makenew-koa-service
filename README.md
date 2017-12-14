@@ -179,7 +179,8 @@ In production, mount these inside the container to inject configuration.
 
 The (whitespace-trimmed) contents of each file in `config/secret.d` is
 added to the config under the property `secret`
-with a key equal to the filename.
+with a key equal to the filename
+(filenames should not contain a `.`).
 
 For example, to use the secret in `config/secret.d/foobar`,
 reference it from another property like
