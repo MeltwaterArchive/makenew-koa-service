@@ -66,14 +66,15 @@
     ramda "^0.25.0"
     uuid "^3.1.0"
 
-"@meltwater/mlabs-koa@^1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@meltwater/mlabs-koa/-/mlabs-koa-1.3.0.tgz#2f48af66810b6d3b6eed1219722e48a348dffc49"
+"@meltwater/mlabs-koa@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@meltwater/mlabs-koa/-/mlabs-koa-1.3.1.tgz#1fc85d297d506e9e1c3ea5e3be32fea8ea2915c7"
   dependencies:
     "@koa/cors" "^2.2.1"
     "@meltwater/mlabs-logger" "^3.1.0"
     "@meltwater/phi" "^1.0.0"
     boom "^7.1.1"
+    chokidar "^1.7.0"
     confit "^2.2.1"
     koa-conditional-get "^2.0.0"
     koa-etag "^3.0.0"
