@@ -172,6 +172,7 @@ The files `config/env.json` and `config/local.json`,
 and the paths `config/env.d` and `config/local.d`
 are excluded from version control.
 The load order is `env.d/*.json`, `env.json`, `local.d/*.json`, and `local.json`.
+Hidden files (dotfiles) are ignored.
 In development, use these for local overrides and secrets.
 In production, mount these inside the container to inject configuration.
 
@@ -179,8 +180,9 @@ In production, mount these inside the container to inject configuration.
 
 The (whitespace-trimmed) contents of each file in `config/secret.d` is
 added to the config under the property `secret`
-with a key equal to the filename
-(filenames should not contain a `.`).
+with a key equal to the filename.
+Filenames should not contain a `.` and
+hidden files (dotfiles) are ignored.
 
 For example, to use the secret in `config/secret.d/foobar`,
 reference it from another property like
