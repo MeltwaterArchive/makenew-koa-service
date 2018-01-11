@@ -89,6 +89,7 @@
     "exclude": [
       "**/index.js",
       "server.js",
+      "server/boot.js",
       "lib/app.js",
       "lib/dependencies.js",
       "lib/lifecycle/**/*.js",

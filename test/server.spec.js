@@ -11,7 +11,9 @@ const readFileAsync = promisify(fs.readFile)
 test('creates server config', async t => {
   const fixture = await readFileAsync(path.resolve('fixtures', 'server.json'))
 
-  const { configFactory } = boot()
+  const configFactory = await new Promise(
+    resolve => boot((run, configFactory) => resolve(configFactory)
+  ))
   const configAsync = promisify(configFactory.create.bind(configFactory))
   const config = await configAsync()
 

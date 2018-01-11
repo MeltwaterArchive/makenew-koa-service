@@ -1,6 +1,6 @@
 import path from 'path'
 
-export default (
+export default async (
   configFactory,
   /* istanbul ignore next */
   root = '../'
