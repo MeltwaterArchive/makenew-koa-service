@@ -19,7 +19,7 @@ Bootstrap a new [Node.js] [Koa] microservice in five minutes or less.
 - Fast, reliable, and secure dependency management with [Yarn].
 - [Alpine Linux] based multi-stage [Docker] builds for optimized production images.
 - Images tagged using package version and commit checksum.
-- Images pushed to [Bintray] and the [Amazon EC2 Container Registry (ECR)].
+- Images pushed to [Heroku], [Bintray] and the [Amazon EC2 Container Registry (ECR)].
 - Configurable application lifecycle and middleware suite with [mlabs-koa].
 - Standardized JSON logging with [mlabs-logger].
 - Hierarchical application configuration with [confit].
@@ -42,6 +42,7 @@ Bootstrap a new [Node.js] [Koa] microservice in five minutes or less.
 [Awilix]: https://github.com/jeffijoe/awilix
 [Babel]: https://babeljs.io/
 [Bintray]: https://bintray.com/
+[Heroku]: https://www.heroku.com/
 [CircleCI]: https://circleci.com/
 [Codecov]: https://codecov.io/
 [Docker]: https://www.docker.com/
@@ -284,6 +285,13 @@ If set, [CircleCI] will send code coverage reports to [Codecov].
 
 - `CODECOV_TOKEN`: Codecov token for uploading coverage reports.
 
+##### Heroku
+
+If set, [CircleCI] will deploy images built from master directly to [Heroku].
+
+- `HEROKU_APP`: Heroku application name.
+- `HEROKU_TOKEN`: Heroku authentication token.
+
 ##### Bintray
 
 If set, [CircleCI] will build, tag, and push images to [Bintray].
@@ -292,7 +300,6 @@ If set, [CircleCI] will build, tag, and push images to [Bintray].
 - `BINTRAY_REPOSITORY`: Bintray repository name.
 - `BINTRAY_USERNAME`: Bintray username.
 - `BINTRAY_PASSWORD`: Bintray password (your API key).
-
 
 ##### Amazon EC2 Container Registry (ECR)
 
@@ -308,6 +315,7 @@ If set, [CircleCI] will build, tag, and push images to [Amazon ECR].
 [Bintray]: https://bintray.com/
 [CircleCI]: https://circleci.com/
 [Codecov]: https://codecov.io/
+[Heroku]: https://www.heroku.com/
 
 ### Development tasks
 

@@ -108,6 +108,9 @@ references:
           name: Push and deploy Docker image
           command: |
             apk add --quiet --no-cache bash
+            if [[ -n "${HEROKU_APP}" ]]; then
+              .circleci/push-heroku.sh
+            fi
             if [[ -n "${BINTRAY_REPOSITORY}" ]]; then
               .circleci/push-bintray.sh
             fi

@@ -42,6 +42,12 @@ help_codecov () {
        "https://codecov.io/gh/${circle_repo}/settings"
 }
 
+help_heroku () {
+  echo
+  echo '> Push to Heroku by setting the following environment variables.'
+  echo
+}
+
 help_bintray () {
   echo
   echo '> Push to Bintray by setting the following environment variables.'
@@ -112,6 +118,18 @@ main () {
     read -p '> Codecov token (CODECOV_TOKEN): ' codecov_token
   fi
 
+  [[ $noninteractive == 'true' ]] || help_heroku
+
+  heroku_app=${CI_HEROKU_APP:-}
+  if [[ -z $heroku_app && $noninteractive != 'true' ]]; then
+    read -p '> Heroku app name (HEROKU_APP): ' heroku_app
+  fi
+
+  heroku_token=${CI_HEROKU_TOKEN:-}
+  if [[ -z $heroku_token && $noninteractive != 'true' ]]; then
+    read -p '> Heroku authentication token (HEROKU_TOKEN): ' heroku_token
+  fi
+
   [[ $noninteractive == 'true' ]] || help_bintray
 
   bintray_registry=${CI_BINTRAY_REGISTRY:-}
@@ -166,6 +184,8 @@ main () {
   envvar 'NPM_TOKEN' "${npm_token}"
   envvar 'NPM_TEAM' "${npm_team}"
   envvar 'CODECOV_TOKEN' "${codecov_token}"
+  envvar 'HEROKU_APP' "${heroku_app}"
+  envvar 'HEROKU_TOKEN' "${heroku_token}"
   envvar 'BINTRAY_REGISTRY' "${bintray_registry}"
   envvar 'BINTRAY_REPOSITORY' "${bintray_repository}"
   envvar 'BINTRAY_USERNAME' "${bintray_username}"
