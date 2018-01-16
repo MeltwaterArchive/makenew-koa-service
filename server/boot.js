@@ -2,7 +2,10 @@ import path from 'path'
 
 import { config, createDependencies, createServer } from '../index.js'
 
-const defaultExec = (run, configFactory) => { run(configFactory) }
+const defaultExec = (run, configFactory, callback) => {
+  run(configFactory)
+  callback()
+}
 
 export default (exec = defaultExec) => {
   try {
@@ -18,7 +21,12 @@ export default (exec = defaultExec) => {
     })
 
     config(configFactory, root)
-      .then(() => { exec(run, configFactory) })
+      .then(() => new Promise((resolve, reject) => {
+        exec(run, configFactory, err => {
+          if (err) reject(err)
+          resolve()
+        })
+      }))
       .catch(exit)
   } catch (err) {
     console.error(err)

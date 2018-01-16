@@ -28,19 +28,29 @@ const serverOptions = config => {
 }
 
 if (require.main === module) {
-  const { configFactory } = boot()
-  configFactory.create((err, config) => {
-    if (err) throw err
+  boot((run, configFactory, callback) => {
+    try {
+      configFactory.create((err, config) => {
+        try {
+          if (err) throw err
 
-    const { runExample } = createExamples({
-      createLogger,
-      examples,
-      envVars,
-      defaultOptions: {...defaultOptions, ...serverOptions(config)}
-    })
+          const { runExample } = createExamples({
+            createLogger,
+            examples,
+            envVars,
+            defaultOptions: {...defaultOptions, ...serverOptions(config)}
+          })
 
-    runExample({
-      local: path.resolve(__dirname, 'local.json')
-    })
+          runExample({
+            local: path.resolve(__dirname, 'local.json')
+          })
+          callback()
+        } catch (err) {
+          callback(err)
+        }
+      })
+    } catch (err) {
+      callback(err)
+    }
   })
 }
