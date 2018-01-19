@@ -67,8 +67,8 @@
     uuid "^3.1.0"
 
 "@meltwater/mlabs-koa@^1.6.0":
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/@meltwater/mlabs-koa/-/mlabs-koa-1.6.0.tgz#0902dc71358307f6d21e1406e99cff5d840d5ea2"
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@meltwater/mlabs-koa/-/mlabs-koa-1.6.1.tgz#4eb5874b2a53788e0fc5100f86f68d6558beb24d"
   dependencies:
     "@koa/cors" "^2.2.1"
     "@meltwater/mlabs-logger" "^3.1.0"
