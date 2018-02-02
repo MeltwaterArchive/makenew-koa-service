@@ -215,7 +215,7 @@ The only officially supported environment variables are
 `LOG_ENV`, `LOG_SYSTEM`, `LOG_SERVICE`, and `LOG_LEVEL`.
 
 [confit]: https://github.com/krakenjs/confit
-[mlabs-koa config]: https://github.com/meltwater/mlabs-koa/tree/http-get/docs#config-and-middleware
+[mlabs-koa config]: https://github.com/meltwater/mlabs-koa/tree/master/docs#config-and-middleware
 
 ## Development Quickstart
 
@@ -383,8 +383,8 @@ $ yarn run server:watch
 ##### Development logging
 
 Logging output may be configured according to the
-[`log` config](https://github.com/meltwater/mlabs-koa/tree/http-get/docs#log)
-and [koa `logger` config](https://github.com/meltwater/mlabs-koa/tree/http-get/docs#log).
+[`log` config](https://github.com/meltwater/mlabs-koa/tree/master/docs#log)
+and [koa `logger` config](https://github.com/meltwater/mlabs-koa/tree/master/docs#logger).
 
 - Use `koa.logger.useDev` to toggle between the simple Koa development logger
   and the more verbose Koa production logger.
