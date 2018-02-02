@@ -44,7 +44,7 @@ references:
           name: Test and build package
           command: |
             if [[ "${PUBLISH}" == 'true' ]]; then
-              yarn add --exact source-map-support@0.5.0
+              yarn add --exact source-map-support@0.5.3
               yarn run build
               yarn pack
             else
