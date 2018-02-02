@@ -1,7 +1,6 @@
 import path from 'path'
 
 import createExamples from '@meltwater/examplr'
-import createLogger from '@meltwater/mlabs-logger'
 
 import boot from '../server/boot'
 import health from './health'
@@ -36,7 +35,6 @@ if (require.main === module) {
           if (err) throw err
 
           const { runExample } = createExamples({
-            createLogger,
             examples,
             envVars,
             defaultOptions: {...defaultOptions, ...serverOptions(config)}

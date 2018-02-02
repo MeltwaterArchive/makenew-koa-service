@@ -75,12 +75,12 @@
     ramda "^0.25.0"
     uuid "^3.1.0"
 
-"@meltwater/mlabs-koa@^1.7.0":
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/@meltwater/mlabs-koa/-/mlabs-koa-1.7.0.tgz#ee23d941613083f69e730aa22a9a0ebd327c61df"
+"@meltwater/mlabs-koa@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@meltwater/mlabs-koa/-/mlabs-koa-2.0.0.tgz#621f55eae594885c7cf4ca9b69e5160747e93248"
   dependencies:
     "@koa/cors" "^2.2.1"
-    "@meltwater/mlabs-logger" "^3.1.0"
+    "@meltwater/mlabs-logger" "^4.1.0"
     "@meltwater/phi" "^1.0.0"
     boom "^7.1.1"
     chokidar "^2.0.0"
@@ -96,13 +96,14 @@
     ramda-adjunct "^2.0.0"
     uuid "^3.1.0"
 
-"@meltwater/mlabs-logger@^3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@meltwater/mlabs-logger/-/mlabs-logger-3.1.0.tgz#de823d516dfb1fad99dc298fcde00e6f2c39b4e3"
+"@meltwater/mlabs-logger@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@meltwater/mlabs-logger/-/mlabs-logger-4.1.0.tgz#acb2379027608ec5cfcabcd301d184776612a7ca"
   dependencies:
-    bunyan "^1.8.12"
+    "@meltwater/examplr" "^4.1.2"
     bunyan-formatter "^1.0.0"
     debug "^3.0.0"
+    pino "^4.10.3"
 
 "@meltwater/phi@^1.0.0":
   version "1.2.0"

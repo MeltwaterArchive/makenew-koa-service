@@ -167,6 +167,11 @@ $ docker run --read-only --init --publish 80:8080 \
 
 ### Configuration
 
+All available configuration options and their defaults are
+defined in `config/default.json`.
+Additionally, all configuration options
+provided by [mlabs-koa][mlabs-koa config] are supported.
+
 #### Config files
 
 Configuration is loaded using [confit]
@@ -210,6 +215,7 @@ The only officially supported environment variables are
 `LOG_ENV`, `LOG_SYSTEM`, `LOG_SERVICE`, and `LOG_LEVEL`.
 
 [confit]: https://github.com/krakenjs/confit
+[mlabs-koa config]: https://github.com/meltwater/mlabs-koa/tree/http-get/docs#config-and-middleware
 
 ## Development Quickstart
 
@@ -372,6 +378,36 @@ Run a server that will restart on changes with
 
 ```
 $ yarn run server:watch
+```
+
+##### Development logging
+
+Logging output may be configured according to the
+[`log` config](https://github.com/meltwater/mlabs-koa/tree/http-get/docs#log)
+and [koa `logger` config](https://github.com/meltwater/mlabs-koa/tree/http-get/docs#log).
+
+- Use `koa.logger.useDev` to toggle between the simple Koa development logger
+  and the more verbose Koa production logger.
+- Use `log.outputMode` and `log.filter` to control log output.
+  Override using `LOG_OUTPUT_MODE` and `LOG_FILTER`.
+- Define additional log filters in `server/filters.js`.
+
+For example, this config will provide more verbose logging while
+hiding all lifecycle events:
+
+```json
+{
+  "log": {
+    "level": "debug",
+    "filter": "noLifecycle",
+    "outputMode": "long"
+  },
+  "koa": {
+    "logger": {
+      "useDev": false
+    }
+  }
+}
 ```
 
 ##### Debugging the server

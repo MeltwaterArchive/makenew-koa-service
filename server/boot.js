@@ -1,6 +1,7 @@
 import path from 'path'
 
 import { config, createDependencies, createServer } from '../index.js'
+import logFilters from './filters'
 
 const defaultExec = (run, configFactory, callback) => {
   run(configFactory)
@@ -16,6 +17,7 @@ export default (exec = defaultExec) => {
     const configPath = path.resolve(__dirname, root, 'config')
 
     const { configFactory, run, exit } = createServer({
+      logFilters,
       configPath,
       createDependencies
     })
