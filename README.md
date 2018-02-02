@@ -32,6 +32,7 @@ Bootstrap a new [Node.js] [Koa] microservice in five minutes or less.
 - Futuristic debuggable unit testing with [AVA].
 - Code coverage reporting with [Istanbul], [nyc], and [Codecov].
 - Continuous testing and deployment with [CircleCI].
+- Automated dependency management with [Greenkeeper].
 - [Keep a CHANGELOG].
 - Consistent coding with [EditorConfig].
 - Badges from [Shields.io].
@@ -47,6 +48,7 @@ Bootstrap a new [Node.js] [Koa] microservice in five minutes or less.
 [Codecov]: https://codecov.io/
 [Docker]: https://www.docker.com/
 [EditorConfig]: http://editorconfig.org/
+[Greenkeeper]: https://greenkeeper.io/
 [Istanbul]: https://istanbul.js.org/
 [JSON Lint]: https://github.com/zaach/jsonlint
 [JavaScript Standard Style]: http://standardjs.com/
@@ -117,6 +119,9 @@ Bootstrap a new [Node.js] [Koa] microservice in five minutes or less.
    to require all status checks to pass.
    Disable the GitHub repository projects and wiki options (unless desired).
    Add any required GitHub teams or collaborators to the repository.
+   Enable GitHub data services for dependency analysis.
+   Enable Codecov.
+   Enable Greenkeeper and add the badge from the initial pull request.
 
 ### Updating from this skeleton
 
@@ -285,6 +290,12 @@ If set, [CircleCI] will send code coverage reports to [Codecov].
 
 - `CODECOV_TOKEN`: Codecov token for uploading coverage reports.
 
+##### Greenkeeper
+
+[Greenkeeper] may be enabled for this repository,
+but requires a deployment key with write permission:
+see the [CircleCI documentation for adding one][CircleCI deployment key].
+
 ##### Heroku
 
 If set, [CircleCI] will deploy images built from master directly to [Heroku].
@@ -314,7 +325,9 @@ If set, [CircleCI] will build, tag, and push images to [Amazon ECR].
 [Amazon ECR]: https://aws.amazon.com/ecr/
 [Bintray]: https://bintray.com/
 [CircleCI]: https://circleci.com/
+[CircleCI deployment key]: https://circleci.com/docs/1.0/adding-read-write-deployment-key/
 [Codecov]: https://codecov.io/
+[Greenkeeper]: https://greenkeeper.io/
 [Heroku]: https://www.heroku.com/
 
 ### Development tasks

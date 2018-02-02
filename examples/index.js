@@ -13,6 +13,7 @@ export const examples = {
 const envVars = [
   'KOA_API',
   'LOG_LEVEL',
+  'LOG_FILTER',
   'LOG_OUTPUT_MODE'
 ]
 
