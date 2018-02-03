@@ -96,7 +96,7 @@ makenew () {
   help_codecov "meltwater/${mk_repo}"
   read -p '> Codecov status token: ' mk_codecov
 
-  sed_delete README.md '6d;12,150'
+  sed_delete README.md '6d;12,151d'
   sed_insert README.md '11i' "${mk_description}"
 
   find_replace "s/\"version\": \".*\"/\"version\": \"0.0.0\"/g"
