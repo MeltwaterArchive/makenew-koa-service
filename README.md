@@ -1,10 +1,9 @@
 # Node.js Koa Microservice Skeleton
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/meltwater/makenew-koa-service.svg?token=47341fa47b4a663d6b16156aa084108310321a880b9c099c045fa0743c647e65&ts=1517616269295)](https://greenkeeper.io/)
-
 [![npm](https://img.shields.io/badge/npm-%40meltwater%2Fmakenew--koa--service-blue.svg)](https://www.npmjs.com/package/@meltwater/makenew-koa-service)
 [![Bintray](https://img.shields.io/badge/bintray-docker-blue.svg)](https://bintray.com/meltwater/registry/makenew-koa-service)
 [![GitHub](https://img.shields.io/badge/github-repo-blue.svg)](https://github.com/meltwater/makenew-koa-service)
+[![Greenkeeper](https://badges.greenkeeper.io/meltwater/makenew-koa-service.svg?token=47341fa47b4a663d6b16156aa084108310321a880b9c099c045fa0743c647e65&ts=1517616269295)](https://greenkeeper.io/)
 [![Codecov](https://img.shields.io/codecov/c/token/VFHOFyfAmt/github/meltwater/makenew-koa-service.svg)](https://codecov.io/gh/meltwater/makenew-koa-service)
 [![CircleCI](https://circleci.com/gh/meltwater/makenew-koa-service.svg?style=shield&circle-token=e53ca6f402372b0142f6748a90670a4295f4b8d8)](https://circleci.com/gh/meltwater/makenew-koa-service)
 
