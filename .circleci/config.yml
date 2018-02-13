@@ -135,7 +135,7 @@ references:
             fi
             .circleci/deploy.sh
   branches: &branches
-    only: /^(v(er)?\/?[0-9]|master)/
+    only: /^(v(er)?\/?[0-9].*|master)/
   filters: &filters
     filters:
       branches:
