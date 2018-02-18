@@ -1,6 +1,6 @@
 import path from 'path'
 
-import { config, createDependencies, createServer } from '../index.js'
+import { config, createDependencies, createServer } from './'
 import logFilters from './filters'
 
 const defaultExec = (run, configFactory, callback) => {
@@ -8,7 +8,7 @@ const defaultExec = (run, configFactory, callback) => {
   callback()
 }
 
-export default (exec = defaultExec) => {
+const boot = (exec = defaultExec) => {
   try {
     const root = path.basename(path.resolve(__dirname, '../')) === 'dist'
     /* istanbul ignore next */
@@ -35,3 +35,22 @@ export default (exec = defaultExec) => {
     process.exit(3)
   }
 }
+
+export const loadConfig = () => new Promise((resolve, reject) => {
+  boot((run, configFactory) => {
+    try {
+      configFactory.create((err, config) => {
+        try {
+          if (err) throw err
+          resolve(config)
+        } catch (err) {
+          reject(err)
+        }
+      })
+    } catch (err) {
+      reject(err)
+    }
+  })
+})
+
+export default boot
