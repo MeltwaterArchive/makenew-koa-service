@@ -55,6 +55,8 @@ references:
               yarn add --exact source-map-support@0.5.3
               yarn run build
               yarn pack
+            elif [[ "${SERVER_TEST}" == 'true' ]]; then
+              yarn run test:server
             elif [[ "${GREENKEEPER}" == 'true' ]]; then
               echo 'Skipping tests for Greenkeeper lockfile update'
             else
@@ -91,6 +93,7 @@ references:
             if [[ "${PUBLISH}" == 'true' ]]; then
               .circleci/publish.sh
             fi
+
   push: &push
     working_directory: /app
     docker:
@@ -134,6 +137,38 @@ references:
               .circleci/push-ecr.sh
             fi
             .circleci/deploy.sh
+
+  push-server: &push-server
+    working_directory: /app
+    docker:
+      - image: docker:stable-git
+    environment:
+      APP_NAME: 'meltwater/app-test'
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 17.10.0-ce
+          docker_layer_caching: true
+      - run:
+          name: Install build dependencies
+          command: apk add --no-cache jq
+      - run:
+          name: Reset version in package.json
+          command: |
+            jq '.version="0.0.0"' package.json > package.json.tmp
+            mv package.json.tmp package.json
+      - run:
+          name: Build Docker image
+          command: |
+            docker build --tag $APP_NAME \
+              --build-arg=NPM_TOKEN=$NPM_TOKEN \
+              -f Dockerfile .
+      - deploy:
+          name: Push Docker image
+          command: |
+            apk add --quiet --no-cache bash
+            .circleci/push-bintray.sh
+
   branches: &branches
     only: /^(v(er)?\/?[0-9].*|master)/
   filters: &filters
@@ -163,6 +198,22 @@ jobs:
     <<: *build
   push:
     <<: *push
+  push-server:
+    <<: *push-server
+  test-server:
+    environment:
+      SERVER_TEST: 'true'
+      COVERAGE: 'true'
+    docker:
+      - image: node:carbon-alpine
+      - image: $BINTRAY_REGISTRY.bintray.io/$BINTRAY_REPOSITORY:test.$CIRCLE_SHA1
+        environment:
+          NODE_ENV: test
+          PORT: 9001
+        auth:
+          username: $BINTRAY_USERNAME
+          password: $BINTRAY_PASSWORD
+    <<: *build
   lockfile:
     environment:
       GREENKEEPER: 'true'
@@ -178,6 +229,12 @@ workflows:
           <<: *filters
       - node-carbon-alpine:
           <<: *filters
+      - push-server:
+          <<: *filters
+      - test-server:
+          <<: *filters
+          requires:
+            - push-server
       - publish:
           filters:
             branches:
@@ -185,6 +242,7 @@ workflows:
           requires:
             - node-carbon
             - node-carbon-alpine
+            - test-server
       - push:
           filters:
             branches:
