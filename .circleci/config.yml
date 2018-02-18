@@ -60,7 +60,7 @@ references:
             elif [[ "${GREENKEEPER}" == 'true' ]]; then
               echo 'Skipping tests for Greenkeeper lockfile update'
             else
-              yarn run dist
+              yarn test
             fi
       - run:
           name: Extract package
