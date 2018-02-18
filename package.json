@@ -92,6 +92,7 @@
       "**/index.js",
       "server.js",
       "server/boot.js",
+      "server/filters.js",
       "lib/app.js",
       "lib/dependencies.js",
       "lib/lifecycle/**/*.js",
