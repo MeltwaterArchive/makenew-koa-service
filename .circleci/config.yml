@@ -51,7 +51,7 @@ references:
       - run:
           name: Test and build package
           command: |
-            if [[ "${PUBLISH}" == 'true' ]]; then
+            if [[ "${PACKAGE}" == 'true' ]]; then
               yarn add --exact source-map-support@0.5.3
               yarn run build
               yarn pack
@@ -65,7 +65,7 @@ references:
       - run:
           name: Extract package
           command: |
-            if [[ "${PUBLISH}" == 'true' ]]; then
+            if [[ "${PACKAGE}" == 'true' ]]; then
               tar -xzf *.tgz
             else
               mkdir package
@@ -87,12 +87,18 @@ references:
               yarn global add codecov
               codecov
             fi
+
+  publish: &publish
+    working_directory: /app
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - checkout
       - deploy:
           name: Publish package
           command: |
-            if [[ "${PUBLISH}" == 'true' ]]; then
-              .circleci/publish.sh
-            fi
+            cd /tmp/workspace
+            /app/.circleci/publish.sh
 
   push: &push
     working_directory: /app
@@ -138,37 +144,6 @@ references:
             fi
             .circleci/deploy.sh
 
-  push-server: &push-server
-    working_directory: /app
-    docker:
-      - image: docker:stable-git
-    environment:
-      APP_NAME: 'meltwater/app-test'
-    steps:
-      - checkout
-      - setup_remote_docker:
-          version: 17.10.0-ce
-          docker_layer_caching: true
-      - run:
-          name: Install build dependencies
-          command: apk add --no-cache jq
-      - run:
-          name: Reset version in package.json
-          command: |
-            jq '.version="0.0.0"' package.json > package.json.tmp
-            mv package.json.tmp package.json
-      - run:
-          name: Build Docker image
-          command: |
-            docker build --tag $APP_NAME \
-              --build-arg=NPM_TOKEN=$NPM_TOKEN \
-              -f Dockerfile .
-      - deploy:
-          name: Push Docker image
-          command: |
-            apk add --quiet --no-cache bash
-            .circleci/push-bintray.sh
-
   branches: &branches
     only: /^(v(er)?\/?[0-9].*|master)/
   filters: &filters
@@ -190,16 +165,23 @@ jobs:
     docker:
       - image: node:carbon-alpine
     <<: *build
-  publish:
+  package:
     environment:
-      PUBLISH: 'true'
+      PACKAGE: 'true'
     docker:
       - image: node:carbon
     <<: *build
+  publish:
+    docker:
+      - image: node:carbon
+    <<: *publish
   push:
     <<: *push
   push-server:
-    <<: *push-server
+    environment:
+      HEROKU_APP: ''
+      AWS_ECR_REPOSITORY: ''
+    <<: *push
   test-server:
     environment:
       SERVER_TEST: 'true'
@@ -229,8 +211,12 @@ workflows:
           <<: *filters
       - node-carbon-alpine:
           <<: *filters
+      - package:
+          <<: *filters
       - push-server:
           <<: *filters
+          requires:
+            - package
       - test-server:
           <<: *filters
           requires:
