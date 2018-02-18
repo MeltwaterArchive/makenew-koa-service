@@ -32,6 +32,8 @@
     "test": "nyc ava",
     "pretest": "npm-run-all lint",
     "test:update": "ava --update-snapshots",
+    "test:server": "nyc ava 'test/**/*.test.js'",
+    "test:server:update": "ava --update-snapshots 'test/**/*.test.js'",
     "lint": "gulp lint",
     "clean": "del dist",
     "build": "npm-run-all --parallel build:*",
@@ -44,6 +46,7 @@
     "preversion": "npm-run-all dist",
     "postversion": "git push && git push --tags",
     "server": "babel-node server/index.js",
+    "server:test": "NODE_ENV=test babel-node server/index.js",
     "server:watch": "babel-watch --watch config server/index.js",
     "server:inspect": "babel-node --inspect server/index.js",
     "server:inspect:watch": "nodemon node_modules/.bin/babel-node --inspect server/index.js",
@@ -55,6 +58,7 @@
     "ava:inspect:watch": "nodemon --inspect node_modules/ava/profile",
     "watch": "gulp watch",
     "watch:test": "ava --watch",
+    "watch:test:server": "ava --watch test/server",
     "format": "standard --fix",
     "report": "nyc report"
   },
@@ -76,6 +80,7 @@
   "ava": {
     "files": [
       "**/*.spec.js",
+      "!**/*.test.js",
       "!dist/**/*",
       "!package/**/*"
     ],
