@@ -452,7 +452,13 @@ is handled by [gulp].
 View available commands with
 
 ```
-$ yarn run gulp -- --tasks
+$ yarn run gulp --tasks
+```
+
+Run all linters with
+
+```
+$ yarn run lint
 ```
 
 In a separate window, use gulp to watch for changes
@@ -488,6 +494,12 @@ Watch and run tests on changes with
 $ yarn run watch:test
 ```
 
+If using [AVA snapshot testing], update snapshots with
+
+```
+$ yarn run test:update
+```
+
 Generate a coverage report with
 
 ```
@@ -512,6 +524,7 @@ $ yarn run ava:inspect:watch lib/true.spec.js
 ```
 
 [AVA]: https://github.com/avajs/ava
+[AVA snapshot testing]: https://github.com/avajs/ava#snapshot-testing
 [Codecov]: https://codecov.io/
 [Istanbul]: https://istanbul.js.org/
 
