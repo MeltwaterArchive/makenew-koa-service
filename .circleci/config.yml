@@ -55,10 +55,10 @@ references:
               yarn test
             fi
       - run:
-          name: Test behavior
+          name: Test server
           command: |
-            if [[ "${TEST_BEHAVIOR}" == 'true' ]]; then
-              yarn run test:behavior
+            if [[ "${TEST_SMOKE}" == 'true' ]]; then
+              yarn run test:smoke
             fi
       - run:
           name: Build package
@@ -193,7 +193,7 @@ jobs:
     <<: *push
   test-server:
     environment:
-      TEST_BEHAVIOR: 'true'
+      TEST_SMOKE: 'true'
       COVERAGE: 'true'
     docker:
       - image: node:carbon-alpine

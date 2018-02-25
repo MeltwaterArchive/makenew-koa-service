@@ -1,4 +1,4 @@
-# Snapshot report for `test/server/health.test.js`
+# Snapshot report for `test/smoke/health.test.js`
 
 The actual snapshot is saved in `health.test.js.snap`.
 
