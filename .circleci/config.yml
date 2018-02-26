@@ -57,7 +57,7 @@ references:
       - run:
           name: Test server
           command: |
-            if [[ "${TEST_SMOKE}" == 'true' ]]; then
+            if [[ "${TEST_SERVER}" == 'true' ]]; then
               yarn run test:smoke
             fi
       - run:
@@ -193,7 +193,7 @@ jobs:
     <<: *push
   test-server:
     environment:
-      TEST_SMOKE: 'true'
+      TEST_SERVER: 'true'
       COVERAGE: 'true'
     docker:
       - image: node:carbon-alpine
