@@ -1,6 +1,6 @@
 import path from 'path'
 
-import { config, createDependencies, createServer } from './'
+import { configure, createDependencies, createServer } from './'
 import logFilters from './filters'
 
 const defaultExec = (run, configFactory, callback) => {
@@ -22,7 +22,7 @@ const boot = (exec = defaultExec) => {
       createDependencies
     })
 
-    config(configFactory, root)
+    configure(configFactory, root)
       .then(() => new Promise((resolve, reject) => {
         exec(run, configFactory, err => {
           if (err) reject(err)
