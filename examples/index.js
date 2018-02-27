@@ -2,7 +2,7 @@ import path from 'path'
 
 import createExamples from '@meltwater/examplr'
 
-import boot from '../server/boot'
+import boot from '../server/index'
 import health from './health'
 
 export const examples = {
