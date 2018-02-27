@@ -3,7 +3,6 @@
 [![npm](https://img.shields.io/badge/npm-%40meltwater%2Fmakenew--koa--service-blue.svg)](https://www.npmjs.com/package/@meltwater/makenew-koa-service)
 [![Bintray](https://img.shields.io/badge/bintray-docker-blue.svg)](https://bintray.com/meltwater/registry/makenew-koa-service)
 [![GitHub](https://img.shields.io/badge/github-repo-blue.svg)](https://github.com/meltwater/makenew-koa-service)
-[![Greenkeeper](https://badges.greenkeeper.io/meltwater/makenew-koa-service.svg?token=47341fa47b4a663d6b16156aa084108310321a880b9c099c045fa0743c647e65&ts=1517616269295)](https://greenkeeper.io/)
 [![Codecov](https://img.shields.io/codecov/c/token/VFHOFyfAmt/github/meltwater/makenew-koa-service.svg)](https://codecov.io/gh/meltwater/makenew-koa-service)
 [![CircleCI](https://circleci.com/gh/meltwater/makenew-koa-service.svg?style=shield&circle-token=e53ca6f402372b0142f6748a90670a4295f4b8d8)](https://circleci.com/gh/meltwater/makenew-koa-service)
 
@@ -33,7 +32,6 @@ Bootstrap a new [Node.js] [Koa] microservice in five minutes or less.
 - Futuristic debuggable unit testing with [AVA].
 - Code coverage reporting with [Istanbul], [nyc], and [Codecov].
 - Continuous unit and smoke testing and deployment with [CircleCI].
-- Automated dependency management with [Greenkeeper].
 - [Keep a CHANGELOG].
 - Consistent coding with [EditorConfig].
 - Badges from [Shields.io].
@@ -49,7 +47,6 @@ Bootstrap a new [Node.js] [Koa] microservice in five minutes or less.
 [Codecov]: https://codecov.io/
 [Docker]: https://www.docker.com/
 [EditorConfig]: http://editorconfig.org/
-[Greenkeeper]: https://greenkeeper.io/
 [Istanbul]: https://istanbul.js.org/
 [JSON Lint]: https://github.com/zaach/jsonlint
 [JavaScript Standard Style]: http://standardjs.com/
@@ -122,7 +119,6 @@ Bootstrap a new [Node.js] [Koa] microservice in five minutes or less.
    Add any required GitHub teams or collaborators to the repository.
    Enable GitHub data services for dependency analysis.
    Enable Codecov.
-   Enable Greenkeeper and add the badge from the initial pull request.
 
 ### Updating from this skeleton
 
@@ -297,12 +293,6 @@ If set, [CircleCI] will send code coverage reports to [Codecov].
 
 - `CODECOV_TOKEN`: Codecov token for uploading coverage reports.
 
-##### Greenkeeper
-
-[Greenkeeper] may be enabled for this repository,
-but requires a deployment key with write permission:
-see the [CircleCI documentation for adding one][CircleCI deployment key].
-
 ##### Heroku
 
 If set, [CircleCI] will deploy images built from master directly to [Heroku].
@@ -332,9 +322,7 @@ If set, [CircleCI] will build, tag, and push images to [Amazon ECR].
 [Amazon ECR]: https://aws.amazon.com/ecr/
 [Bintray]: https://bintray.com/
 [CircleCI]: https://circleci.com/
-[CircleCI deployment key]: https://circleci.com/docs/1.0/adding-read-write-deployment-key/
 [Codecov]: https://codecov.io/
-[Greenkeeper]: https://greenkeeper.io/
 [Heroku]: https://www.heroku.com/
 
 ### Development tasks

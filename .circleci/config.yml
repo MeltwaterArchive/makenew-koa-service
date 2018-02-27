@@ -11,7 +11,6 @@ references:
             if [[ -f /sbin/apk ]]; then
               apk add --no-cache ca-certificates git openssh-client
             fi
-      - add_ssh_keys
       - checkout
       - run:
           name: Save build versions
@@ -35,13 +34,6 @@ references:
       - run:
           name: Install dependencies
           command: yarn install --pure-lockfile
-      - run:
-          name: Update lockfile with Greenkeeper
-          command: |
-            if [[ "${GREENKEEPER}" == 'true' ]]; then
-              yarn global add greenkeeper-lockfile@1
-              greenkeeper-lockfile-update
-            fi
       - save_cache:
           key: yarn-cache-{{ arch }}-{{ checksum ".versions" }}-{{ epoch }}
           paths: ~/.yarn-cache
@@ -80,12 +72,6 @@ references:
           root: .
           paths:
             - package
-      - run:
-          name: Upload lockfile with Greenkeeper
-          command: |
-            if [[ "${GREENKEEPER}" == 'true' ]]; then
-              greenkeeper-lockfile-upload
-            fi
       - run:
           name: Upload coverage to Codecov
           command: |
@@ -152,13 +138,6 @@ references:
 
   branches: &branches
     only: /^(v(er)?\/?[0-9].*|master)/
-  filters: &filters
-    filters:
-      branches:
-        ignore: /^greenkeeper\/.*/
-  lockfile: &lockfile
-    requires:
-      - lockfile
 
 jobs:
   node-carbon:
@@ -205,29 +184,18 @@ jobs:
           username: $BINTRAY_USERNAME
           password: $BINTRAY_PASSWORD
     <<: *build
-  lockfile:
-    environment:
-      GREENKEEPER: 'true'
-    docker:
-      - image: node:carbon
-    <<: *build
 
 workflows:
   version: 2
   default:
     jobs:
-      - node-carbon:
-          <<: *filters
-      - node-carbon-alpine:
-          <<: *filters
-      - package:
-          <<: *filters
+      - node-carbon
+      - node-carbon-alpine
+      - package
       - push-server:
-          <<: *filters
           requires:
             - package
       - test-server:
-          <<: *filters
           requires:
             - push-server
       - publish:
@@ -244,13 +212,3 @@ workflows:
               <<: *branches
           requires:
             - publish
-  greenkeeper:
-    jobs:
-      - lockfile:
-          filters:
-            branches:
-              only: /^greenkeeper\/.*/
-      - node-carbon:
-          <<: *lockfile
-      - node-carbon-alpine:
-          <<: *lockfile
