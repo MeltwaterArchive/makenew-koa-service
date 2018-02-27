@@ -89,7 +89,7 @@ references:
       - deploy:
           name: Publish package
           command: |
-            cd /tmp/workspace
+            cd /tmp/workspace/package
             /app/.circleci/publish.sh
 
   push: &push
