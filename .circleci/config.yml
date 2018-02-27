@@ -197,7 +197,7 @@ jobs:
       COVERAGE: 'true'
     docker:
       - image: node:carbon-alpine
-      - image: $BINTRAY_REGISTRY.bintray.io/$BINTRAY_REPOSITORY:test.$CIRCLE_SHA1
+      - image: $BINTRAY_REGISTRY.bintray.io/$BINTRAY_REPOSITORY:ci.$CIRCLE_SHA1
         environment:
           NODE_ENV: test
           PORT: 9001
