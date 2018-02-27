@@ -118,25 +118,25 @@ references:
       - run:
           name: Push Docker image to Heroku
           command: |
-            if [[ -n "${HEROKU_APP}" ]]; then
+            if [[ -z "${SKIP_HEROKU}" && -n "${HEROKU_APP}" ]]; then
               .circleci/push-heroku.sh
             fi
       - run:
           name: Push Docker image to Bintray
           command: |
-            if [[ -n "${BINTRAY_REPOSITORY}" ]]; then
+            if [[ -z "${SKIP_BINTRAY}" && -n "${BINTRAY_REPOSITORY}" ]]; then
               .circleci/push-bintray.sh
             fi
       - run:
           name: Push Docker image to ECR
           command: |
-            if [[ -n "${AWS_ECR_REPOSITORY}" ]]; then
+            if [[ -z "${SKIP_ECR}" && -n "${AWS_ECR_REPOSITORY}" ]]; then
               .circleci/push-ecr.sh
             fi
       - deploy:
           name: Deploy
           command: |
-            if [[ -n "${DEPLOY}" ]]; then
+            if [[ "${DEPLOY}" == 'true' ]]; then
               .circleci/deploy.sh
             fi
 
@@ -181,8 +181,8 @@ jobs:
     <<: *build
   push-ci:
     environment:
-      HEROKU_APP: ''
-      AWS_ECR_REPOSITORY: ''
+      SKIP_HEROKU: 'true'
+      SKIP_ECR: 'true'
     <<: *push
   test-server:
     environment:
