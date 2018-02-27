@@ -133,6 +133,15 @@ references:
   branches: &branches
     only: /^(v(er)?\/?[0-9].*|master)/
 
+  push-or-publish: &push-or-publish
+    filters:
+      branches:
+        <<: *branches
+    requires:
+      - node-carbon
+      - node-carbon-alpine
+      - test-server
+
 jobs:
   node-carbon:
     environment:
@@ -196,16 +205,6 @@ workflows:
           requires:
             - push-server
       - publish:
-          filters:
-            branches:
-              <<: *branches
-          requires:
-            - node-carbon
-            - node-carbon-alpine
-            - test-server
+          <<: *push-or-publish
       - push:
-          filters:
-            branches:
-              <<: *branches
-          requires:
-            - publish
+          <<: *push-or-publish
