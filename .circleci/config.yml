@@ -79,18 +79,12 @@ references:
               yarn global add codecov
               codecov
             fi
-
-  publish: &publish
-    working_directory: /app
-    steps:
-      - attach_workspace:
-          at: /tmp/workspace
-      - checkout
       - deploy:
           name: Publish package
           command: |
-            cd /tmp/workspace/package
-            /app/.circleci/publish.sh
+            if [[ "${PUBLISH_PACKAGE}" == 'true' ]]; then
+              .circleci/publish.sh
+            fi
 
   push: &push
     working_directory: /app
@@ -160,9 +154,12 @@ jobs:
       - image: node:carbon
     <<: *build
   publish:
+    environment:
+      BUILD_PACKAGE: 'true'
+      PUBLISH_PACKAGE: 'true'
     docker:
       - image: node:carbon
-    <<: *publish
+    <<: *build
   push:
     <<: *push
   push-server:
