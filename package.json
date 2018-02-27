@@ -58,7 +58,7 @@
     "ava:inspect:watch": "nodemon --inspect node_modules/ava/profile",
     "watch": "gulp watch",
     "watch:test": "ava --watch",
-    "watch:test:server": "ava --watch test/server",
+    "watch:test:smoke": "ava --watch 'test/**/*.test.js'",
     "format": "standard --fix",
     "report": "nyc report"
   },
