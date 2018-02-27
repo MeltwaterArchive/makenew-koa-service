@@ -32,7 +32,7 @@ Bootstrap a new [Node.js] [Koa] microservice in five minutes or less.
 - Automatically lint on changes with [gulp].
 - Futuristic debuggable unit testing with [AVA].
 - Code coverage reporting with [Istanbul], [nyc], and [Codecov].
-- Continuous testing and deployment with [CircleCI].
+- Continuous unit and smoke testing and deployment with [CircleCI].
 - Automated dependency management with [Greenkeeper].
 - [Keep a CHANGELOG].
 - Consistent coding with [EditorConfig].
@@ -486,6 +486,7 @@ and coverage is reported by [Istanbul] and uploaded to [Codecov].
 - Test files end in `.spec.js`.
 - Unit tests are placed under `lib` alongside the tested module.
 - Integration tests are placed in `test`.
+- Smoke tests are placed in `test` and end in `.test.js`.
 - Static files used in tests are placed in `fixtures`.
 
 Watch and run tests on changes with
@@ -522,6 +523,32 @@ Watch and restart the debugging session on changes with
 ```
 $ yarn run ava:inspect:watch lib/true.spec.js
 ```
+
+##### Smoke tests
+
+Smoke tests make network requests directly against the service
+(running with `NODE_ENV=test`).
+On CircleCI, the tests run against the built container.
+
+To run smoke tests locally, start a test server with
+
+```
+$ yarn run server:test
+```
+
+and run the tests with
+
+```
+$ yarn run test:smoke
+```
+
+or update the test snapshots with
+
+```
+$ yarn run test:smoke:update
+```
+
+Refer to the full list of scripts for additional watch and debug modes.
 
 [AVA]: https://github.com/avajs/ava
 [AVA snapshot testing]: https://github.com/avajs/ava#snapshot-testing
