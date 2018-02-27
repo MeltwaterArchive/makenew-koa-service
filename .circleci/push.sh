@@ -8,7 +8,7 @@ docker_repo=$1
 docker_tag="${CIRCLE_SHA1:-latest}"
 pkg_version=$(jq -r '.version' package.json)
 
-if [[ "${CIRCLE_JOB:-push}" == 'push-server' ]]; then
+if [[ "${CIRCLE_JOB:-push}" == 'push-ci' ]]; then
   docker_tag="ci.${docker_tag}"
 fi
 
