@@ -4,7 +4,7 @@ import { promisify } from 'util'
 
 import test from 'ava'
 
-import boot from '../server/boot'
+import { boot } from '../server/index'
 
 const readFileAsync = promisify(fs.readFile)
 
@@ -12,8 +12,8 @@ test('creates server config', async t => {
   const fixture = await readFileAsync(path.resolve('fixtures', 'server.json'))
 
   const configFactory = await new Promise(
-    resolve => boot((run, configFactory) => resolve(configFactory)
-  ))
+    resolve => boot((run, configFactory) => resolve(configFactory))
+  )
   const configAsync = promisify(configFactory.create.bind(configFactory))
   const config = await configAsync()
 
