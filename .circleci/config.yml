@@ -101,7 +101,7 @@ references:
           docker_layer_caching: true
       - run:
           name: Install build dependencies
-          command: apk add --no-cache jq
+          command: apk add --no-cache bash jq
       - run:
           name: Move package to working directory
           command: mv /tmp/workspace/package .
@@ -115,20 +115,30 @@ references:
             docker build --tag $APP_NAME \
               --build-arg=NPM_TOKEN=$NPM_TOKEN \
               -f .circleci/Dockerfile .
-      - deploy:
-          name: Push and deploy Docker image
+      - run:
+          name: Push Docker image to Heroku
           command: |
-            apk add --quiet --no-cache bash
             if [[ -n "${HEROKU_APP}" ]]; then
               .circleci/push-heroku.sh
             fi
+      - run:
+          name: Push Docker image to Bintray
+          command: |
             if [[ -n "${BINTRAY_REPOSITORY}" ]]; then
               .circleci/push-bintray.sh
             fi
+      - run:
+          name: Push Docker image to ECR
+          command: |
             if [[ -n "${AWS_ECR_REPOSITORY}" ]]; then
               .circleci/push-ecr.sh
             fi
-            .circleci/deploy.sh
+      - deploy:
+          name: Deploy
+          command: |
+            if [[ -n "${DEPLOY}" ]]; then
+              .circleci/deploy.sh
+            fi
 
   branches: &branches
     only: /^(v(er)?\/?[0-9].*|master)/
@@ -169,9 +179,7 @@ jobs:
     docker:
       - image: node:carbon
     <<: *build
-  push:
-    <<: *push
-  push-server:
+  push-ci:
     environment:
       HEROKU_APP: ''
       AWS_ECR_REPOSITORY: ''
@@ -190,6 +198,10 @@ jobs:
           username: $BINTRAY_USERNAME
           password: $BINTRAY_PASSWORD
     <<: *build
+  push:
+    environment:
+      DEPLOY: 'true'
+    <<: *push
 
 workflows:
   version: 2
@@ -198,12 +210,12 @@ workflows:
       - node-carbon
       - node-carbon-alpine
       - package
-      - push-server:
+      - push-ci:
           requires:
             - package
       - test-server:
           requires:
-            - push-server
+            - push-ci
       - publish:
           <<: *push-or-publish
       - push:
