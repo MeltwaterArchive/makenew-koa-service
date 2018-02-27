@@ -90,8 +90,6 @@ references:
     working_directory: /app
     docker:
       - image: docker:stable-git
-    environment:
-      APP_NAME: 'meltwater/app'
     steps:
       - attach_workspace:
           at: /tmp/workspace
@@ -118,25 +116,25 @@ references:
       - run:
           name: Push Docker image to Heroku
           command: |
-            if [[ -z "${SKIP_HEROKU}" && -n "${HEROKU_APP}" ]]; then
+            if [[ -n "${HEROKU_APP}" ]]; then
               .circleci/push-heroku.sh
             fi
       - run:
           name: Push Docker image to Bintray
           command: |
-            if [[ -z "${SKIP_BINTRAY}" && -n "${BINTRAY_REPOSITORY}" ]]; then
+            if [[ -n "${BINTRAY_REPOSITORY}" ]]; then
               .circleci/push-bintray.sh
             fi
       - run:
           name: Push Docker image to ECR
           command: |
-            if [[ -z "${SKIP_ECR}" && -n "${AWS_ECR_REPOSITORY}" ]]; then
+            if [[ -n "${AWS_ECR_REPOSITORY}" ]]; then
               .circleci/push-ecr.sh
             fi
       - deploy:
           name: Deploy
           command: |
-            if [[ "${DEPLOY}" == 'true' ]]; then
+            if [[ -n "${DEPLOY}" ]]; then
               .circleci/deploy.sh
             fi
 
@@ -181,8 +179,9 @@ jobs:
     <<: *build
   push-ci:
     environment:
-      SKIP_HEROKU: 'true'
-      SKIP_ECR: 'true'
+      APP_NAME: 'meltwater/app'
+      HEROKU_APP: ''
+      AWS_ECR_REPOSITORY: ''
     <<: *push
   test-server:
     environment:
@@ -200,6 +199,7 @@ jobs:
     <<: *build
   push:
     environment:
+      APP_NAME: 'meltwater/app'
       DEPLOY: 'true'
     <<: *push
 
