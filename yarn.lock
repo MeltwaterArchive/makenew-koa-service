@@ -65,9 +65,9 @@
     change-case "^3.0.1"
     pino "^4.10.3"
 
-"@meltwater/mlabs-health@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@meltwater/mlabs-health/-/mlabs-health-1.1.0.tgz#1f777b05a96de4386a2f36029e616f14eb21b77f"
+"@meltwater/mlabs-health@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@meltwater/mlabs-health/-/mlabs-health-1.1.1.tgz#1dfc80e55bbe8f47c66f51cf606fa3ca51b32c62"
   dependencies:
     "@meltwater/phi" "^2.0.0"
     "@reactivex/rxjs" "^5.4.2"
