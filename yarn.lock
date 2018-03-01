@@ -65,14 +65,14 @@
     change-case "^3.0.1"
     pino "^4.10.3"
 
-"@meltwater/mlabs-health@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@meltwater/mlabs-health/-/mlabs-health-1.0.0.tgz#d9ee9f97a8590f81ac6f33a12906cfae417d2c89"
+"@meltwater/mlabs-health@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@meltwater/mlabs-health/-/mlabs-health-1.1.0.tgz#1f777b05a96de4386a2f36029e616f14eb21b77f"
   dependencies:
+    "@meltwater/phi" "^2.0.0"
     "@reactivex/rxjs" "^5.4.2"
     bunyan "^1.8.12"
     cache-manager "^2.4.0"
-    ramda "^0.25.0"
     uuid "^3.1.0"
 
 "@meltwater/mlabs-koa@^2.1.1":
@@ -1149,8 +1149,8 @@ boom@2.x.x:
     hoek "2.x.x"
 
 boom@^7.1.1:
-  version "7.1.1"
-  resolved "https://registry.yarnpkg.com/boom/-/boom-7.1.1.tgz#50392a4e3417e971f1ad28622c20e832275260bb"
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/boom/-/boom-7.2.0.tgz#2bff24a55565767fde869ec808317eb10c48e966"
   dependencies:
     hoek "5.x.x"
 
@@ -1249,8 +1249,8 @@ cache-base@^1.0.1:
     unset-value "^1.0.0"
 
 cache-manager@^2.4.0:
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/cache-manager/-/cache-manager-2.7.0.tgz#8477802d0a257bea0d36b92420ac8998e460b09d"
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/cache-manager/-/cache-manager-2.8.0.tgz#9954baba5e7a0c0940418d98545642b8a23333f6"
   dependencies:
     async "1.5.2"
     lru-cache "4.0.0"
@@ -5537,7 +5537,7 @@ ramda-adjunct@~2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/ramda-adjunct/-/ramda-adjunct-2.5.0.tgz#50d7d74ca273731b05dcdda77d102bc57d7c1145"
 
-ramda@^0.25.0, ramda@~0.25.0:
+ramda@~0.25.0:
   version "0.25.0"
   resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.25.0.tgz#8fdf68231cffa90bc2f9460390a0cb74a29b29a9"
 
