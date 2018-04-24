@@ -2,6 +2,8 @@ FROM node:carbon-alpine as build
 
 ARG NPM_TOKEN
 
+RUN apk add --no-cache ca-certificates
+
 WORKDIR /usr/src/app
 COPY package/package.json.tmp ./package.json
 COPY package/yarn.lock ./
@@ -12,6 +14,8 @@ COPY package .
 RUN rm -f package.json.tmp
 
 FROM node:carbon-alpine
+
+RUN apk add --no-cache ca-certificates
 
 WORKDIR /usr/src/app
 COPY --from=build /usr/src/app .

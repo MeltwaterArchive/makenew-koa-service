@@ -2,7 +2,7 @@ FROM node:carbon-alpine as build
 
 ARG NPM_TOKEN
 
-RUN apk add --no-cache tar
+RUN apk add --no-cache ca-certificates tar
 
 WORKDIR /usr/src/app
 COPY package.json yarn.lock ./
@@ -19,6 +19,8 @@ FROM node:carbon-alpine as install
 
 ARG NPM_TOKEN
 
+RUN apk add --no-cache ca-certificates
+
 WORKDIR /usr/src/app
 COPY --from=build /usr/src/app/package.json ./usr/src/app/yarn.lock ./
 RUN echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
@@ -27,6 +29,8 @@ RUN rm -f .npmrc
 COPY --from=build /usr/src/app .
 
 FROM node:carbon-alpine
+
+RUN apk add --no-cache ca-certificates
 
 WORKDIR /usr/src/app
 COPY --from=install /usr/src/app .
