@@ -56,9 +56,9 @@
     "server:test:inspect": "NODE_ENV=test babel-node --inspect server/index",
     "server:test:inspect:watch": "NODE_ENV=test nodemon node_modules/.bin/babel-node --inspect server/index",
     "example": "babel-node examples",
-    "example:watch": "nodemon node_modules/.bin/babel-node examples",
+    "example:watch": "nodemon --exec babel-node examples",
     "example:inspect": "babel-node --inspect examples",
-    "example:inspect:watch": "nodemon node_modules/.bin/babel-node --inspect examples",
+    "example:inspect:watch": "nodemon --exec babel-node --inspect examples",
     "watch": "gulp watch",
     "watch:test": "ava --watch",
     "watch:test:smoke": "ava --watch 'test/**/*.test.js'",
@@ -116,6 +116,13 @@
       "text"
     ]
   },
+  "nodemonConfig": {
+    "ignore": [
+      "**/*.spec.js",
+      "test/",
+      "tmp/"
+    ]
+  },
   "engines": {
     "node": ">=8.9.0"
   },
@@ -138,7 +145,7 @@
     "gulp-jsonlint": "^1.1.2",
     "gulp-load-plugins": "^1.4.0",
     "gulp-plumber": "^1.1.0",
-    "gulp-standard": "^10.0.0",
+    "gulp-standard": "^11.0.0",
     "gulp-watch": "^5.0.0",
     "gulplog": "^1.0.0",
     "nodemon": "^1.11.0",
