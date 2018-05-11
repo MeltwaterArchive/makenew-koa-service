@@ -5,10 +5,16 @@ import { loadConfig } from '../server/index'
 
 test.beforeEach(async t => {
   const config = await loadConfig()
-  t.context.api = `http://localhost:${config.get('port')}`
+  t.context.httpOptions = {
+    port: config.get('port'),
+    headers: {accept: 'application/json'}
+  }
 })
 
 test('get health', async t => {
-  const res = await httpGetJson(`${t.context.api}/health`)
+  const res = await httpGetJson({
+    ...t.context.httpOptions,
+    path: '/health'
+  })
   t.snapshot(res)
 })
