@@ -69,6 +69,26 @@ help_aws_ecr () {
   echo
 }
 
+help_drone () {
+  echo
+  echo '> Trigger deploys with Drone by setting the following environment variables.'
+}
+
+help_drone_repo () {
+  echo
+  echo '> Use meltwater/k8s-site-oi'
+}
+
+help_drone_server () {
+  echo
+  echo '> Use https://drone.meltwater.io'
+}
+
+help_drone_token () {
+  echo
+  echo '> Use a valid token for the meltwater-mlabs GitHub user'
+}
+
 command -v jq >/dev/null 2>&1 || \
   (echo 'jq required: https://stedolan.github.io/jq/' && exit 2)
 
@@ -181,6 +201,26 @@ main () {
     read -p '> AWS secret access key (AWS_SECRET_ACCESS_KEY): ' aws_secret_access_key
   fi
 
+  [[ $noninteractive == 'true' ]] || help_drone
+
+  drone_repo=${CI_DRONE_REPO:-}
+  [[ -n "${drone_repo}" || $noninteractive == 'true' ]] || help_drone_repo
+  if [[ -z $drone_repo && $noninteractive != 'true' ]]; then
+    read -p '> Drone deploy repo (DRONE_REPO): ' drone_repo
+  fi
+
+  drone_server=${CI_DRONE_SERVER:-}
+  [[ -n "${drone_server}" || $noninteractive == 'true' ]] || help_drone_server
+  if [[ -z $drone_server && $noninteractive != 'true' ]]; then
+    read -p '> Drone server (DRONE_SERVER): ' drone_server
+  fi
+
+  drone_token=${CI_DRONE_TOKEN:-}
+  [[ -n "${drone_token}" || $noninteractive == 'true' ]] || help_drone_token
+  if [[ -z $drone_token && $noninteractive != 'true' ]]; then
+    read -p '> Drone token (DRONE_TOKEN): ' drone_token
+  fi
+
   envvar 'NPM_TOKEN' "${npm_token}"
   envvar 'NPM_TEAM' "${npm_team}"
   envvar 'CODECOV_TOKEN' "${codecov_token}"
@@ -195,6 +235,9 @@ main () {
   envvar 'AWS_DEFAULT_REGION' "${aws_default_region}"
   envvar 'AWS_ACCESS_KEY_ID' "${aws_access_key_id}"
   envvar 'AWS_SECRET_ACCESS_KEY' "${aws_secret_access_key}"
+  envvar 'DRONE_REPO' "${drone_repo}"
+  envvar 'DRONE_SERVER' "${drone_server}"
+  envvar 'DRONE_TOKEN' "${drone_token}"
 }
 
 noninteractive=${NONINTERACTIVE:-false}
