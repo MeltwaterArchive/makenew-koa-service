@@ -33,7 +33,7 @@ help_npm_token () {
 
 help_npm_team () {
   echo
-  echo '> Use meltwater:read-only'
+  echo '> Just put meltwater:read-only'
 }
 
 help_codecov () {
@@ -55,12 +55,23 @@ help_bintray () {
 }
 
 help_bintray_registry () {
-  echo '> If unsure, use meltwater-docker-registry'
+  echo
+  echo '> For example, meltwater-docker-oi-registry'
+}
+
+help_bintray_repositoy () {
+  echo
+  echo '> For example, if the package name is oi-foo-bar put foo-bar'
+}
+
+help_bintray_username () {
+  echo
+  echo '> Just put meltwater-mlabs'
 }
 
 help_bintray_password () {
   echo
-  echo '> Your Bintray API key.'
+  echo '> Use a valid API key for the meltwater-mlabs user'
 }
 
 help_aws_ecr () {
@@ -76,12 +87,12 @@ help_drone () {
 
 help_drone_repo () {
   echo
-  echo '> Use meltwater/k8s-site-oi'
+  echo '> Just put meltwater/k8s-site-oi'
 }
 
 help_drone_server () {
   echo
-  echo '> Use https://drone.meltwater.io'
+  echo '> Just put https://drone.meltwater.io'
 }
 
 help_drone_token () {
@@ -159,11 +170,13 @@ main () {
   fi
 
   bintray_repository=${CI_BINTRAY_REPOSITORY:-}
+  [[ -n "${bintray_repository}" || $noninteractive == 'true' ]] || help_bintray_repositoy
   if [[ -z $bintray_repository && $noninteractive != 'true' ]]; then
     read -p '> Bintray repository name (BINTRAY_REPOSITORY): ' bintray_repository
   fi
 
   bintray_username=${CI_BINTRAY_USERNAME:-}
+  [[ -n "${bintray_username}" || $noninteractive == 'true' ]] || help_bintray_username
   if [[ -z $bintray_username && $noninteractive != 'true' ]]; then
     read -p '> Bintray username (BINTRAY_USERNAME): ' bintray_username
   fi
