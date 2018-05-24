@@ -113,28 +113,35 @@ references:
             docker build --tag $APP_NAME \
               --build-arg=NPM_TOKEN=$NPM_TOKEN \
               -f .circleci/Dockerfile .
-      - run:
+      - deploy:
           name: Push Docker image to Heroku
           command: |
             if [[ -n "${HEROKU_APP}" ]]; then
               .circleci/push-heroku.sh
             fi
-      - run:
+      - deploy:
           name: Push Docker image to Bintray
           command: |
             if [[ -n "${BINTRAY_REPOSITORY}" ]]; then
               .circleci/push-bintray.sh
             fi
-      - run:
+      - deploy:
           name: Push Docker image to ECR
           command: |
             if [[ -n "${AWS_ECR_REPOSITORY}" ]]; then
               .circleci/push-ecr.sh
             fi
+
+  deploy: &deploy
+    working_directory: /app
+    docker:
+      - image: meltwaterfoundation/drone-cli
+    steps:
+      - checkout
       - deploy:
           name: Deploy
           command: |
-            if [[ -n "${DEPLOY}" ]]; then
+            if [[ -n "${DRONE_SERVER}" ]]; then
               .circleci/deploy.sh
             fi
 
@@ -202,6 +209,8 @@ jobs:
       APP_NAME: 'meltwater/app'
       DEPLOY: 'true'
     <<: *push
+  deploy:
+    <<: *deploy
 
 workflows:
   version: 2
@@ -220,3 +229,9 @@ workflows:
           <<: *push-or-publish
       - push:
           <<: *push-or-publish
+      - deploy:
+          filters:
+            branches:
+              <<: *branches
+          requires:
+            - push
