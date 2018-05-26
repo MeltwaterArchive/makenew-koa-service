@@ -1,3 +1,4 @@
 {
+  "shutdownOnChange": false,
   "port": 9000
 }
