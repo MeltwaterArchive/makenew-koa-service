@@ -75,9 +75,9 @@
     cache-manager "^2.4.0"
     uuid "^3.1.0"
 
-"@meltwater/mlabs-koa@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@meltwater/mlabs-koa/-/mlabs-koa-4.0.0.tgz#84f4db1b141b2860d7acb74816a6c818ec670578"
+"@meltwater/mlabs-koa@^4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@meltwater/mlabs-koa/-/mlabs-koa-4.0.1.tgz#c2ae3ec6e3b7f2bc4405c19c04bf82cd602c5413"
   dependencies:
     "@koa/cors" "^2.2.1"
     "@meltwater/mlabs-logger" "^4.1.1"
