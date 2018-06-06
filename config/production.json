@@ -1,0 +1,5 @@
+{
+  "health": {
+    "maxUnhealthyDuration": 60000
+  }
+}
