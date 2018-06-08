@@ -1,4 +1,7 @@
 {
+  "health": {
+    "maxUnhealthyDuration": 1
+  },
   "log": {
     "outputMode": "short"
   },
