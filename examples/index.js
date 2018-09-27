@@ -37,7 +37,7 @@ if (require.main === module) {
           const { runExample } = createExamples({
             examples,
             envVars,
-            defaultOptions: {...defaultOptions, ...serverOptions(config)}
+            defaultOptions: { ...defaultOptions, ...serverOptions(config) }
           })
 
           runExample({
