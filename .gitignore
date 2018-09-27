@@ -104,3 +104,12 @@ typings/
 
 # Serverless directories
 .serverless
+
+# Docker exceptions
+.circleci
+.dockerignore
+.editorconfig
+.git
+.gitignore
+Dockerfile
+!package
