@@ -6,8 +6,7 @@ import { loadConfig } from '../server/index'
 test.beforeEach(async t => {
   const config = await loadConfig()
   t.context.httpOptions = {
-    port: config.get('port'),
-    headers: { accept: 'application/json' }
+    port: config.get('port')
   }
 })
 
