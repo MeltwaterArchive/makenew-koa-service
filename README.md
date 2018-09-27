@@ -10,7 +10,7 @@
 
 Bootstrap a new [Node.js] [Koa] microservice in five minutes or less.
 
-[Koa]: http://koajs.com/
+[Koa]: https://koajs.com/
 [Node.js]: https://nodejs.org/
 
 ### Features
@@ -46,16 +46,16 @@ Bootstrap a new [Node.js] [Koa] microservice in five minutes or less.
 [CircleCI]: https://circleci.com/
 [Codecov]: https://codecov.io/
 [Docker]: https://www.docker.com/
-[EditorConfig]: http://editorconfig.org/
+[EditorConfig]: https://editorconfig.org/
 [Istanbul]: https://istanbul.js.org/
 [JSON Lint]: https://github.com/zaach/jsonlint
-[JavaScript Standard Style]: http://standardjs.com/
-[Keep a CHANGELOG]: http://keepachangelog.com/
+[JavaScript Standard Style]: https://standardjs.com/
+[Keep a CHANGELOG]: https://keepachangelog.com/
 [Node.js]: https://nodejs.org/
-[Shields.io]: http://shields.io/
+[Shields.io]: https://shields.io/
 [Yarn]: https://yarnpkg.com/
 [confit]: https://github.com/krakenjs/confit
-[gulp]: http://gulpjs.com/
+[gulp]: https://gulpjs.com/
 [mlabs-health]: https://github.com/meltwater/mlabs-health
 [mlabs-koa]: https://github.com/meltwater/mlabs-koa
 [mlabs-logger]: https://github.com/meltwater/mlabs-logger
@@ -227,7 +227,7 @@ Run each command below in a separate terminal window:
 
 ```
 $ yarn run watch
-$ yarn run watch:test
+$ yarn run test:watch
 $ yarn run server:watch
 ```
 
@@ -462,8 +462,8 @@ Automatically fix most JavaScript formatting errors with
 $ yarn run format
 ```
 
-[gulp]: http://gulpjs.com/
-[JavaScript Standard Style]: http://standardjs.com/
+[gulp]: https://gulpjs.com/
+[JavaScript Standard Style]: https://standardjs.com/
 [JSON Lint]: https://github.com/zaach/jsonlint
 
 #### Tests
@@ -480,7 +480,7 @@ and coverage is reported by [Istanbul] and uploaded to [Codecov].
 Watch and run tests on changes with
 
 ```
-$ yarn run watch:test
+$ yarn run test:watch
 ```
 
 If using [AVA snapshot testing], update snapshots with
