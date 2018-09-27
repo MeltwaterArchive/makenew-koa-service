@@ -10,7 +10,6 @@ RUN echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
 RUN yarn install --pure-lockfile
 RUN rm -f .npmrc
 COPY . ./
-RUN yarn add --exact source-map-support@0.5.3
 RUN yarn run build \
  && yarn pack \
  && tar -xzf *.tgz
