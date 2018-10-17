@@ -1,6 +1,6 @@
 {
   "health": {
-    "maxUnhealthyDuration": 1
+    "maxUnhealthyDuration": 0
   },
   "log": {
     "outputMode": "short"
