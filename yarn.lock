@@ -702,10 +702,10 @@
     cache-manager "^2.4.0"
     uuid "^3.1.0"
 
-"@meltwater/mlabs-koa@^7.0.0-rc.0":
-  version "7.0.0-rc.0"
-  resolved "https://registry.yarnpkg.com/@meltwater/mlabs-koa/-/mlabs-koa-7.0.0-rc.0.tgz#bb7bacf6a6ff8037aa6973a70a2b7ebc37e2d7c6"
-  integrity sha512-Db2D4Vwpdr3mN7cDq/jr5jxhwUbfXfD8G+cr7v72PeSbivLXnhksSkxwnXplYXMn2ceK0WQvcOSCpLvIK91D6A==
+"@meltwater/mlabs-koa@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@meltwater/mlabs-koa/-/mlabs-koa-7.0.0.tgz#a839875d9f7460e4361a042277e13db3791890e9"
+  integrity sha512-3Uqwa0rQewGgh0FOL5TKMykVJMKPi8NbhcviLdUEvfyWbj+7DBKeZtG5GPX7UeDHM/pWTg9Y1NYXcc3GBo698w==
   dependencies:
     "@koa/cors" "^2.2.1"
     "@meltwater/mlabs-logger" "^5.1.1"
