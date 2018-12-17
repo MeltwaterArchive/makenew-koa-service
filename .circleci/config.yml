@@ -1,51 +1,26 @@
 ---
-version: 2.1
+version: 2
 
-executors:
-  node:
-    parameters:
-      tag:
-        type: string
-        default: latest
+references:
+  build: &build
     working_directory: ~/build
-    docker:
-      - image: node:<< parameters.tag >>
-
-commands:
-  setup:
-    description: Setup environment
-    parameters:
-      is_alpine:
-        type: boolean
-        default: false
     steps:
-      - when:
-          condition: << parameters.is_alpine >>
-          steps:
-            - run:
-                name: Install Alpine Linux build dependencies
-                command: apk add --no-cache ca-certificates git openssh-client
-      - checkout
-      - when:
-          condition: << parameters.is_alpine >>
-          steps:
-            - run:
-                name: Save Alpine Linux version
-                command: |
-                  echo "alpine: $(cat /etc/alpine-release)" >> .versions
       - run:
-          name: Save Node.js and Yarn versions
+          name: Install Alpine Linux build dependencies
+          command: |
+            if [[ -f /sbin/apk ]]; then
+              apk add --no-cache ca-certificates git openssh-client
+            fi
+      - checkout
+      - run:
+          name: Save build versions
           command: |
             echo "node: ${NODE_VERSION}" >> .versions
             echo "yarn: ${YARN_VERSION}" >> .versions
+            if [[ -f /sbin/apk ]]; then
+              echo "alpine: $(cat /etc/alpine-release)" >> .versions
+            fi
             cat .versions
-  install:
-    description: Install dependencies
-    parameters:
-      save_cache:
-        type: boolean
-        default: true
-    steps:
       - restore_cache:
           key: yarn-cache-{{ arch }}-{{ checksum ".versions" }}-
       - restore_cache:
@@ -58,97 +33,207 @@ commands:
           command: echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
       - run:
           name: Install dependencies
-          command: yarn install --frozen-lockfile --non-interactive
-      - when:
-          condition: << parameters.save_cache >>
-          steps:
-            - save_cache:
-                key: yarn-cache-{{ arch }}-{{ checksum ".versions" }}-{{ epoch }}
-                paths: ~/.yarn-cache
-            - save_cache:
-                key: node-modules-{{ arch }}-{{ checksum ".versions" }}-{{ checksum "yarn.lock" }}
-                paths: node_modules
-jobs:
-  test:
-    description: Test Node.js package
-    parameters:
-      tag:
-        type: string
-        default: latest
-      is_alpine:
-        type: boolean
-        default: false
-      upload_coverage:
-        type: boolean
-        default: false
-    executor:
-      name: node
-      tag: << parameters.tag >>
-    steps:
-      - setup:
-          is_alpine: << parameters.is_alpine >>
-      - install
+          command: yarn install --pure-lockfile
+      - save_cache:
+          key: yarn-cache-{{ arch }}-{{ checksum ".versions" }}-{{ epoch }}
+          paths: ~/.yarn-cache
+      - save_cache:
+          key: node-modules-{{ arch }}-{{ checksum ".versions" }}-{{ checksum "yarn.lock" }}
+          paths: node_modules
       - run:
           name: Test package
-          command: yarn test
+          command: |
+            if [[ "${TEST_PACKAGE}" == 'true' ]]; then
+              yarn test
+            fi
+      - run:
+          name: Test server
+          command: |
+            if [[ "${TEST_SERVER}" == 'true' ]]; then
+              yarn run test:smoke
+            fi
       - run:
           name: Build package
-          command: yarn run build
-      - when:
-          condition: << parameters.upload_coverage >>
-          steps:
-            - run:
-                name: Upload coverage to Codecov
-                command: |
-                  if [[ -n "${CODECOV_TOKEN}" ]]; then
-                    yarn global add codecov
-                    codecov
-                  fi
-  publish:
-    description: Publish Node.js package
-    executor:
-      name: node
-      tag: carbon
-    steps:
-      - setup
-      - install
+          command: |
+            if [[ "${BUILD_PACKAGE}" == 'true' ]]; then
+              yarn run build
+              yarn pack
+            fi
       - run:
-          name: Build package
-          command: yarn run build
+          name: Extract package
+          command: |
+            if [[ "${BUILD_PACKAGE}" == 'true' ]]; then
+              tar -xzf *.tgz
+            else
+              mkdir package
+            fi
+      - persist_to_workspace:
+          root: .
+          paths:
+            - package
+      - run:
+          name: Upload coverage to Codecov
+          command: |
+            if [[ "${COVERAGE}" == 'true' && -n "${CODECOV_TOKEN}" ]]; then
+              yarn global add codecov
+              codecov
+            fi
       - deploy:
           name: Publish package
-          command: .circleci/publish.sh
+          command: |
+            if [[ "${PUBLISH_PACKAGE}" == 'true' ]]; then
+              .circleci/publish.sh
+            fi
+
+  push: &push
+    working_directory: /app
+    docker:
+      - image: docker:stable-git
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - checkout
+      - setup_remote_docker:
+          version: 18.06.1-ce
+          docker_layer_caching: true
+      - run:
+          name: Install build dependencies
+          command: apk add --no-cache bash jq
+      - run:
+          name: Move package to working directory
+          command: mv /tmp/workspace/package .
+      - run:
+          name: Create package.json.tmp
+          command: |
+            jq '.version="0.0.0"' package/package.json > package/package.json.tmp
+      - run:
+          name: Build Docker image
+          command: |
+            docker build --tag $APP_NAME \
+              --build-arg=NPM_TOKEN=$NPM_TOKEN \
+              -f .circleci/Dockerfile .
+      - deploy:
+          name: Push Docker image to Heroku
+          command: |
+            if [[ -n "${HEROKU_APP}" ]]; then
+              .circleci/push-heroku.sh
+            fi
+      - deploy:
+          name: Push Docker image to Bintray
+          command: |
+            if [[ -n "${BINTRAY_REPOSITORY}" ]]; then
+              .circleci/push-bintray.sh
+            fi
+      - deploy:
+          name: Push Docker image to ECR
+          command: |
+            if [[ -n "${AWS_ECR_REPOSITORY}" ]]; then
+              .circleci/push-ecr.sh
+            fi
+
+  deploy: &deploy
+    working_directory: /app
+    docker:
+      - image: meltwaterfoundation/drone-cli
+    steps:
+      - run:
+          name: Install Alpine Linux build dependencies
+          command: apk add --no-cache ca-certificates git openssh-client
+      - checkout
+      - deploy:
+          name: Deploy
+          command: |
+            if [[ -n "${DRONE_SERVER}" ]]; then
+              .circleci/deploy.sh
+            fi
+
+  branches: &branches
+    only: /^(v(er)?\/?[0-9].*|master)/
+
+  push-or-publish: &push-or-publish
+    filters:
+      branches:
+        <<: *branches
+    requires:
+      - node-dubnium
+      - node-dubnium-alpine
+      - test-server
+
+jobs:
+  node-dubnium:
+    environment:
+      TEST_PACKAGE: 'true'
+      COVERAGE: 'true'
+    docker:
+      - image: node:dubnium
+    <<: *build
+  node-dubnium-alpine:
+    environment:
+      TEST_PACKAGE: 'true'
+    docker:
+      - image: node:dubnium-alpine
+    <<: *build
+  package:
+    environment:
+      BUILD_PACKAGE: 'true'
+    docker:
+      - image: node:dubnium
+    <<: *build
+  publish:
+    environment:
+      BUILD_PACKAGE: 'true'
+      PUBLISH_PACKAGE: 'true'
+    docker:
+      - image: node:dubnium
+    <<: *build
+  push-ci:
+    environment:
+      APP_NAME: 'meltwater/app'
+      HEROKU_APP: ''
+      AWS_ECR_REPOSITORY: ''
+    <<: *push
+  test-server:
+    environment:
+      TEST_SERVER: 'true'
+      COVERAGE: 'true'
+    docker:
+      - image: node:dubnium-alpine
+      - image: $BINTRAY_REGISTRY.bintray.io/$BINTRAY_REPOSITORY:ci.$CIRCLE_SHA1
+        environment:
+          NODE_ENV: test
+          PORT: 9001
+        auth:
+          username: $BINTRAY_USERNAME
+          password: $BINTRAY_PASSWORD
+    <<: *build
+  push:
+    environment:
+      APP_NAME: 'meltwater/app'
+      DEPLOY: 'true'
+    <<: *push
+  deploy:
+    <<: *deploy
 
 workflows:
+  version: 2
   default:
     jobs:
-      - test:
-          name: test-latest
-      - test:
-          name: test-latest-alpine
-          tag: alpine
-          is_alpine: true
-      - test:
-          name: test-dubnium
-          tag: dubnium
-      - test:
-          name: test-dubnium-alpine
-          tag: dubnium-alpine
-          is_alpine: true
-      - test:
-          name: test-carbon
-          tag: carbon
-          upload_coverage: true
-      - test:
-          name: test-carbon-alpine
-          tag: carbon-alpine
-          is_alpine: true
+      - node-dubnium
+      - node-dubnium-alpine
+      - package
+      - push-ci:
+          requires:
+            - package
+      - test-server:
+          requires:
+            - push-ci
       - publish:
+          <<: *push-or-publish
+      - push:
+          <<: *push-or-publish
+      - deploy:
           filters:
             branches:
-              only: /^(v(er)?\/?[0-9].*|master)/
+              <<: *branches
           requires:
-            - test-latest
-            - test-latest-alpine
-            - test-carbon
-            - test-carbon-alpine
+            - push

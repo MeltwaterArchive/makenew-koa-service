@@ -1,4 +1,4 @@
-FROM node:carbon-alpine as build
+FROM node:dubnium-alpine as build
 
 ARG NPM_TOKEN
 
@@ -13,7 +13,7 @@ RUN rm -f .npmrc
 COPY package .
 RUN rm -f package.json.tmp
 
-FROM node:carbon-alpine
+FROM node:dubnium-alpine
 
 RUN apk add --no-cache ca-certificates
 
