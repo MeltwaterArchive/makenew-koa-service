@@ -250,6 +250,7 @@ workflows:
       - test:
           name: test
           tag: dubnium
+          upload_coverage: true
       - test:
           name: test-alpine
           tag: dubnium-alpine
