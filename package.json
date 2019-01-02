@@ -36,7 +36,7 @@
     "test:watch": "ava --watch",
     "test:inspect": "node --inspect node_modules/ava/profile",
     "test:inspect:watch": "nodemon --inspect node_modules/ava/profile",
-    "test:smoke": "nyc ava 'test/**/*.test.js'",
+    "test:smoke": "ava 'test/**/*.test.js'",
     "test:smoke:update": "ava --update-snapshots 'test/**/*.test.js'",
     "test:smoke:watch": "ava --watch 'test/**/*.test.js'",
     "lint": "gulp lint",
