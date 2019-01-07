@@ -62,6 +62,7 @@
     "example:watch": "nodemon --exec babel-node examples",
     "example:inspect": "babel-node --inspect examples",
     "example:inspect:watch": "nodemon --exec babel-node --inspect examples",
+    "profile": "0x --output-dir tmp/0x.{timestamp} --output-html {outputDir}/index.html server.js",
     "watch": "gulp watch",
     "format": "standard --fix",
     "report": "nyc report"
@@ -129,6 +130,7 @@
     "source-map-support": "^0.5.9"
   },
   "devDependencies": {
+    "0x": "^4.7.2",
     "@babel/cli": "^7.0.0",
     "@babel/core": "^7.0.1",
     "@babel/node": "^7.0.0",
