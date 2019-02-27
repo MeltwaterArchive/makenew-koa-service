@@ -16,20 +16,28 @@ const boot = (exec = defaultExec) => {
       : '../'
     const configPath = path.resolve(__dirname, root, 'config')
 
-    const { configFactory, run, exit } = createServer({
+    const { configFactory, run, exit, watcher, ready } = createServer({
       logFilters,
       configPath,
       createDependencies
     })
 
-    configure(configFactory, root)
-      .then(() => new Promise((resolve, reject) => {
-        exec(run, configFactory, err => {
-          if (err) reject(err)
-          resolve()
-        })
-      }))
-      .catch(exit)
+    let booted = false
+    const init = () => {
+      if (booted) return
+      booted = true
+      configure(configFactory, root)
+        .then(() => new Promise((resolve, reject) => {
+          exec(run, configFactory, err => {
+            if (err) reject(err)
+            resolve()
+          })
+        }))
+        .catch(exit)
+    }
+
+    watcher.on('ready', init)
+    if (ready) return init()
   } catch (err) {
     console.error(err)
     process.exit(3)

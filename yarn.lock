@@ -745,7 +745,7 @@
     cache-manager "^2.4.0"
     uuid "^3.1.0"
 
-"@meltwater/mlabs-koa@^7.1.1":
+"@meltwater/mlabs-koa@^7.4.0":
   version "7.4.0"
   resolved "https://registry.yarnpkg.com/@meltwater/mlabs-koa/-/mlabs-koa-7.4.0.tgz#d03c0d45eb58605bdb7334f1539c16d2e9c63b52"
   integrity sha512-U+qSgdeLrROlFOISmDLdXTgGGxd6xhLgEkuulZ207SMSoIl4MkU53EuPnUnjmZYuA6aDnz0Zd8cXF4PqiGdVaw==
