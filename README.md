@@ -32,10 +32,12 @@ Bootstrap a new [Node.js] [Koa] microservice in five minutes or less.
 - Futuristic debuggable unit testing with [AVA].
 - Code coverage reporting with [Istanbul], [nyc], and [Codecov].
 - Continuous unit and smoke testing and deployment with [CircleCI].
+- Profiling with [0x].
 - [Keep a CHANGELOG].
 - Consistent coding with [EditorConfig].
 - Badges from [Shields.io].
 
+[0x]: https://github.com/davidmarkclements/0x
 [AVA]: https://github.com/avajs/ava
 [Alpine Linux]: https://alpinelinux.org/
 [Amazon EC2 Container Registry (ECR)]: https://aws.amazon.com/ecr/
