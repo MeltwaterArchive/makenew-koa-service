@@ -1,4 +1,7 @@
 {
+  "log": {
+    "useExtreme": true
+  },
   "logRedaction": {
     "authorization": [
       "req.headers.cookie",
