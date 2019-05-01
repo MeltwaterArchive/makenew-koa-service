@@ -735,24 +735,24 @@
     pino "^5.4.1"
     pino-pretty "^2.1.0"
 
-"@meltwater/mlabs-health@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@meltwater/mlabs-health/-/mlabs-health-1.2.0.tgz#4801ffb2c17833ede5691361eeaf8488f9f4bcf5"
-  integrity sha512-s349VaziIb9Xn3ZKCDw3j2CkJvRonvew/0sTXLr6Ff1QZcqKq7/zXlVn8ijtnBqDQmiyizytNb18+c1ZpE2E2w==
+"@meltwater/mlabs-health@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@meltwater/mlabs-health/-/mlabs-health-1.3.0.tgz#3f30238372d0e1f375568a97ecd157e01da0c2a3"
+  integrity sha512-zZHPYcjaqTWWr63dM8LyeyOSR0mosLhHQ4TtNrNEDSAV24ayTL/Yp+NeUWw14+5KdUD3CGU5knj/sZUOJ53qWA==
   dependencies:
-    "@meltwater/mlabs-logger" "^5.1.1"
+    "@meltwater/mlabs-logger" "^5.3.0"
     "@meltwater/phi" "^3.1.0"
     cache-manager "^2.4.0"
     rxjs "^6.4.0"
     uuid "^3.1.0"
 
-"@meltwater/mlabs-koa@^7.5.0":
-  version "7.5.0"
-  resolved "https://registry.yarnpkg.com/@meltwater/mlabs-koa/-/mlabs-koa-7.5.0.tgz#b391a0f4d940cdbb2e3c467ad94bd21f34f19453"
-  integrity sha512-VPURpYjAhIwIyM+y1V330/K/7WSHmsw+zyAp1Jv8KBccjBXhASzfKNTzIV1C8fiC1CHeDbYxpJVc5bM02RjnrQ==
+"@meltwater/mlabs-koa@^7.7.0":
+  version "7.7.0"
+  resolved "https://registry.yarnpkg.com/@meltwater/mlabs-koa/-/mlabs-koa-7.7.0.tgz#b96030038969cca4062cf373f8860819798a16b1"
+  integrity sha512-1O7JxTPlfynqN9zooG8ZdSLZKyAnSlP208vOraQTz+uQ9vtZrua3UDwUxyaTlqVRt2V3P0RApa7U4AG+j6NsYg==
   dependencies:
     "@koa/cors" "^3.0.0"
-    "@meltwater/mlabs-logger" "^5.2.0"
+    "@meltwater/mlabs-logger" "^5.3.0"
     "@meltwater/phi" "^3.0.0"
     awaiting "^3.0.0"
     boom "^7.1.1"
@@ -767,10 +767,10 @@
     koa-router "^7.2.1"
     uuid "^3.1.0"
 
-"@meltwater/mlabs-logger@^5.1.1", "@meltwater/mlabs-logger@^5.2.0":
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/@meltwater/mlabs-logger/-/mlabs-logger-5.2.0.tgz#61de1b033c583dd5e8b48f5902134202f95b0145"
-  integrity sha512-giRLfJbFdPCc8gR1FVj4cEPcwMSvriCbiSZz9kEJDUql1qobcvoEBpR/grVslGNsL1o9NoF/m4dAyVwZ2mUeQA==
+"@meltwater/mlabs-logger@^5.3.0":
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/@meltwater/mlabs-logger/-/mlabs-logger-5.3.0.tgz#c02baea7edc2ad44539eb572d7c8db216c5960c0"
+  integrity sha512-uK+GGjEKMKlEJuxUc6B2xr9qC5DbJXSiX6iv3EoNdzluB8wbml71vJHy7vRYkSZgUNb6fCPKZdB9ahW7N5zgBw==
   dependencies:
     "@meltwater/examplr" "^4.2.1"
     bunyan-formatter "^1.0.0"
