@@ -6,8 +6,6 @@
 [![Codecov](https://img.shields.io/codecov/c/token/VFHOFyfAmt/github/meltwater/makenew-koa-service.svg)](https://codecov.io/gh/meltwater/makenew-koa-service)
 [![CircleCI](https://circleci.com/gh/meltwater/makenew-koa-service.svg?style=shield&circle-token=e53ca6f402372b0142f6748a90670a4295f4b8d8)](https://circleci.com/gh/meltwater/makenew-koa-service)
 
-## Description
-
 Bootstrap a new [Node.js] [Koa] microservice in five minutes or less.
 
 [Koa]: https://koajs.com/
@@ -63,6 +61,18 @@ Bootstrap a new [Node.js] [Koa] microservice in five minutes or less.
 [mlabs-logger]: https://github.com/meltwater/mlabs-logger
 [npm]: https://www.npmjs.com/
 [nyc]: https://github.com/istanbuljs/nyc
+
+### License
+
+This repository is released into the public domain through [CC0].
+The other copyright notices for this project
+are for the purpose of demonstrating the licensing of derived projects.
+
+To the extent possible under law, the person who associated CC0
+with this work has waived all copyright and related
+or neighboring rights to this work.
+
+[CC0]: https://creativecommons.org/share-your-work/public-domain/cc0/
 
 ### Bootstrapping a new project
 
@@ -147,6 +157,10 @@ The actual changes for this project are documented in the commit history
 and summarized under [Releases].
 
 [Releases]: https://github.com/meltwater/makenew-koa-service/releases
+
+## Description
+
+TODO
 
 ## Usage
 
@@ -579,7 +593,7 @@ To submit a patch:
 
 ## License
 
-This service is Copyright (c) 2016-2018 Meltwater Group.
+This service is Copyright (c) 2016-2019 Meltwater Group.
 
 ## Warranty
 
