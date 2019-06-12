@@ -295,7 +295,7 @@ $ yarn
 _CircleCI should already be configured: this section is for reference only._
 
 The following environment variables must be set on [CircleCI].
-These may be set manually or by running the script `./circleci/envvars.sh`.
+These may be set manually or by running the script `./.circleci/envvars.sh`.
 
 ##### npm
 
