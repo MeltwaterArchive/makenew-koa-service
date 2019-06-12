@@ -1,6 +1,6 @@
 {
   "name": "@meltwater/makenew-koa-service",
-  "version": "5.5.2",
+  "version": "5.6.0",
   "description": "Koa skeleton for Meltwater Node.js microservices.",
   "main": "dist/index.js",
   "module": "index.js",
@@ -38,7 +38,7 @@
     "test:inspect:watch": "nodemon --inspect node_modules/ava/profile",
     "test:smoke": "SMOKE_TEST=true ava",
     "test:smoke:update": "SMOKE_TEST=true ava --update-snapshots",
-    "test:smoke:watch": "SMOKE_TEST=true ava --watch","lint": "gulp lint",
+    "test:smoke:watch": "SMOKE_TEST=true ava --watch",
     "lint": "gulp lint",
     "clean": "del dist",
     "build": "npm-run-all --parallel build:*",
