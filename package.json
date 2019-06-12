@@ -36,9 +36,9 @@
     "test:watch": "ava --watch",
     "test:inspect": "node --inspect node_modules/ava/profile",
     "test:inspect:watch": "nodemon --inspect node_modules/ava/profile",
-    "test:smoke": "ava 'test/**/*.test.js'",
-    "test:smoke:update": "ava --update-snapshots 'test/**/*.test.js'",
-    "test:smoke:watch": "ava --watch 'test/**/*.test.js'",
+    "test:smoke": "SMOKE_TEST=true ava",
+    "test:smoke:update": "SMOKE_TEST=true ava --update-snapshots",
+    "test:smoke:watch": "SMOKE_TEST=true ava --watch","lint": "gulp lint",
     "lint": "gulp lint",
     "clean": "del dist",
     "build": "npm-run-all --parallel build:*",
@@ -77,16 +77,6 @@
           }
         }
       ]
-    ]
-  },
-  "ava": {
-    "files": [
-      "**/*.spec.js",
-      "!dist/**/*",
-      "!package/**/*"
-    ],
-    "require": [
-      "@babel/register"
     ]
   },
   "nyc": {
