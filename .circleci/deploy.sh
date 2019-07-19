@@ -14,5 +14,5 @@ if [[ "$(git log -1 --pretty='%s')" == "${pkg_version}" ]]; then
     --format="{{ .Number }} {{ .Ref }}" \
     | grep -m 1 'refs/heads/deploy' | cut -d' ' -f1)"
 
-  drone deploy $repo $build_num $deploy_target
+  drone build promote $repo $build_num $deploy_target
 fi
