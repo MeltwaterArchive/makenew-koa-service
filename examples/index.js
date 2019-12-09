@@ -9,6 +9,7 @@ export const examples = {
   health
 }
 
+// prettier-ignore
 const envVars = [
   'KOA_API',
   'LOG_LEVEL',

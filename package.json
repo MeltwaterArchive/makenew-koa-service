@@ -64,7 +64,9 @@
     "example:inspect:watch": "nodemon --exec babel-node --inspect examples",
     "profile": "0x --output-dir tmp/0x.{timestamp} --output-html {outputDir}/index.html server.js",
     "watch": "gulp watch",
-    "format": "standard --fix",
+    "pretty": "prettier --write **/*.js **/*.json **/*.graphql",
+    "format": "npm-run-all --serial pretty format:*",
+    "format:js": "npm-run-all --serial",
     "report": "nyc report"
   },
   "babel": {
@@ -108,6 +110,13 @@
       "tmp/"
     ]
   },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "jsxSingleQuote": true,
+    "trailingComma": "none",
+    "endOfLine": "lf"
+  },
   "engines": {
     "node": ">=10.13.0"
   },
@@ -135,9 +144,10 @@
     "gulp-standard": "^14.0.0",
     "gulp-watch": "^5.0.0",
     "gulplog": "^1.0.0",
-    "nodemon": "^1.11.0",
+    "nodemon": "^2.0.1",
     "npm-run-all": "^4.1.2",
     "nyc": "^14.0.0",
+    "prettier": "^1.19.1",
     "standard": "^14.0.2"
   }
 }
