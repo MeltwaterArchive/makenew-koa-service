@@ -116,7 +116,7 @@ jobs:
     description: Publish Node.js package
     executor:
       name: node
-      tag: dubnium
+      tag: erbium
     steps:
       - setup
       - install
@@ -130,7 +130,7 @@ jobs:
     description: Build Node.js package
     executor:
       name: node
-      tag: dubnium
+      tag: erbium
     steps:
       - setup
       - install
@@ -205,7 +205,7 @@ jobs:
     description: Smoke test Server
     working_directory: ~/build
     docker:
-      - image: node:dubnium
+      - image: node:erbium
       - image: $BINTRAY_REGISTRY.bintray.io/$BINTRAY_REPOSITORY:ci.$CIRCLE_SHA1
         environment:
           NODE_ENV: test
@@ -249,11 +249,11 @@ workflows:
     jobs:
       - test:
           name: test
-          tag: dubnium
+          tag: erbium
           upload_coverage: true
       - test:
           name: test-alpine
-          tag: dubnium-alpine
+          tag: erbium-alpine
           is_alpine: true
       - package
       - push:
