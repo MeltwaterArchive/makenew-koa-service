@@ -64,9 +64,9 @@
     "example:inspect:watch": "nodemon --exec babel-node --inspect examples",
     "profile": "0x --output-dir tmp/0x.{timestamp} --output-html {outputDir}/index.html server.js",
     "watch": "gulp watch",
-    "pretty": "prettier --write **/*.js **/*.json **/*.graphql",
+    "pretty": "prettier --ignore-path .gitignore --write '**/*.js' '**/*.json' '**/*.graphql'",
     "format": "npm-run-all --serial pretty format:*",
-    "format:js": "npm-run-all --serial",
+    "format:js": "standard --fix",
     "report": "nyc report"
   },
   "babel": {
