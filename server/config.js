@@ -31,5 +31,5 @@ export default async (
   })
 }
 
-const getConfig = configFactory =>
+const getConfig = (configFactory) =>
   promisify((...args) => configFactory.create(...args))()

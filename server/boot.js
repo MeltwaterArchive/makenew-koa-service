@@ -30,7 +30,7 @@ const boot = (exec = defaultExec) => {
         .then(
           () =>
             new Promise((resolve, reject) => {
-              exec(run, configFactory, err => {
+              exec(run, configFactory, (err) => {
                 if (err) reject(err)
                 resolve()
               })

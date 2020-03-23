@@ -19,7 +19,7 @@ const envVars = [
 
 const defaultOptions = {}
 
-const serverOptions = config => {
+const serverOptions = (config) => {
   const host = 'http://localhost'
   const port = config.get('port')
 
