@@ -21,7 +21,7 @@ ARG NPM_TOKEN
 RUN apk add --no-cache ca-certificates
 
 WORKDIR /usr/src/app
-COPY --from=build /usr/src/app/package.json ./usr/src/app/yarn.lock ./
+COPY --from=build /usr/src/app/package/package.json ./usr/src/app/package/yarn.lock ./
 RUN echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
 RUN yarn install --production --pure-lockfile
 RUN rm -f .npmrc
