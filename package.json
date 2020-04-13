@@ -1,6 +1,6 @@
 {
   "name": "@meltwater/makenew-koa-service",
-  "version": "7.1.0",
+  "version": "7.2.0",
   "description": "Koa skeleton for Meltwater Node.js microservices.",
   "main": "dist/index.js",
   "module": "index.js",
