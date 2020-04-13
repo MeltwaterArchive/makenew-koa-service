@@ -593,7 +593,7 @@ To submit a patch:
 
 ## License
 
-This service is Copyright (c) 2016-2019 Meltwater Group.
+This service is Copyright (c) 2016-2020 Meltwater Group.
 
 ## Warranty
 
