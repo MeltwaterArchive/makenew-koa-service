@@ -181,19 +181,19 @@ jobs:
               --build-arg=NPM_TOKEN=$NPM_TOKEN \
               -f .circleci/Dockerfile .
       - deploy:
-          name: Push Docker image to Bintray
+          name: Push Docker image to ECR
           command: |
-            if [[ -n "${BINTRAY_REPOSITORY}" ]]; then
-              .circleci/push-bintray.sh
+            if [[ -n "${AWS_ECR_REPOSITORY}" ]]; then
+              .circleci/push-ecr.sh
             fi
       - when:
           unless: << parameters.is_ci >>
           steps:
             - deploy:
-                name: Push Docker image to ECR
+                name: Push Docker image to Bintray
                 command: |
-                  if [[ -n "${AWS_ECR_REPOSITORY}" ]]; then
-                    .circleci/push-ecr.sh
+                  if [[ -n "${BINTRAY_REPOSITORY}" ]]; then
+                    .circleci/push-bintray.sh
                   fi
             - deploy:
                 name: Push Docker image to Heroku
@@ -206,7 +206,7 @@ jobs:
     working_directory: ~/build
     docker:
       - image: node:erbium
-      - image: $BINTRAY_REGISTRY.bintray.io/$BINTRAY_REPOSITORY:ci.$CIRCLE_SHA1
+      - image: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${AWS_ECR_REPOSITORY}:ci.$CIRCLE_SHA1
         environment:
           NODE_ENV: test
           PORT: 9001
