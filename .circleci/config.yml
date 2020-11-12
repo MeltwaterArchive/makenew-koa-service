@@ -210,9 +210,6 @@ jobs:
         environment:
           NODE_ENV: test
           PORT: 9001
-        auth:
-          username: $BINTRAY_USERNAME
-          password: $BINTRAY_PASSWORD
     steps:
       - setup
       - install
